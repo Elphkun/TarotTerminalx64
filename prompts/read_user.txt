@@ -1,0 +1,6 @@
+The querent's question: {{question}}
+Life area: {{life_area}}. Timeframe: {{timeframe}}. Question type: {{question_type}}.
+
+{{summary}}
+
+Write the reading.

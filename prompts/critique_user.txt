@@ -1,0 +1,7 @@
+The querent's question: {{question}}
+Question type: {{question_type}}.
+
+{{summary}}
+
+Draft reading:
+{{reading}}

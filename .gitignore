@@ -1,0 +1,39 @@
+# Godot 4+
+.godot/
+/android/
+
+# Export output
+/build/
+/builds/
+/export/
+
+# Decks live outside the project (user://decks/ by default) and must never be exported.
+# Guard against one being copied in by accident.
+*.jpg
+*.jpeg
+/decks/*
+# ...but keep decks/.gdignore, which stops Godot importing or exporting that folder.
+!/decks/.gdignore
+
+# Spreads added by the user (the built-in ones are in data/spreads.json). Same deal:
+# keep spreads/.gdignore so Godot neither imports nor exports the folder.
+/spreads/*
+!/spreads/.gdignore
+
+# OS and editor temp files
+*.tmp
+.DS_Store
+Thumbs.db
+
+# The author's example readings hold real questions; kept local.
+/prompts/read_examples.txt
+
+# The user's own card meanings: kept local, never shipped.
+/local/*
+!/local/.gdignore
+
+# Private notes for Claude Code.
+/CLAUDE.local.md
+
+# Temporary file written by tools/check_warnings.sh.
+/override.cfg

@@ -1,0 +1,2077 @@
+{
+	"0": {
+		"id": "fool",
+		"index": 0,
+		"type": "trump",
+		"name": "The Fool",
+		"number": 0,
+		"path": 11,
+		"hebrew_letter": "aleph",
+		"attribution": {
+			"kind": "element",
+			"value": "air"
+		},
+		"connects": [
+			"kether",
+			"chokmah"
+		],
+		"gd_title": "The Spirit of Aether",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Folly, mania, intoxication",
+			"gd": "Idea; folly",
+			"personal": ""
+		},
+		"keywords": ["new beginning", "originality", "eccentricity", "folly"]
+	},
+	"1": {
+		"id": "magician",
+		"index": 1,
+		"type": "trump",
+		"name": "The Magician",
+		"number": 1,
+		"path": 12,
+		"hebrew_letter": "beth",
+		"attribution": {
+			"kind": "planet",
+			"value": "mercury"
+		},
+		"connects": [
+			"kether",
+			"binah"
+		],
+		"gd_title": "The Magus of Power",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Skill, will",
+			"gd": "Skill, wisdom",
+			"personal": ""
+		},
+		"keywords": ["skill", "will", "single aim", "shaping circumstance"]
+	},
+	"2": {
+		"id": "high_priestess",
+		"index": 2,
+		"type": "trump",
+		"name": "The High Priestess",
+		"number": 2,
+		"path": 13,
+		"hebrew_letter": "gimel",
+		"attribution": {
+			"kind": "planet",
+			"value": "moon"
+		},
+		"connects": [
+			"kether",
+			"tiphareth"
+		],
+		"gd_title": "The Priestess of the Silver Star",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Secrets, the future as yet unveiled, silence",
+			"gd": "Change, alteration, increase and decrease",
+			"personal": ""
+		},
+		"keywords": ["hidden secrets", "the unknown", "fluctuation", "silence"]
+	},
+	"3": {
+		"id": "empress",
+		"index": 3,
+		"type": "trump",
+		"name": "The Empress",
+		"number": 3,
+		"path": 14,
+		"hebrew_letter": "daleth",
+		"attribution": {
+			"kind": "planet",
+			"value": "venus"
+		},
+		"connects": [
+			"chokmah",
+			"binah"
+		],
+		"gd_title": "The Daughter of the Mighty Ones",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Fruitfulness, action, light, truth",
+			"gd": "Beauty, happiness, pleasure, success",
+			"personal": ""
+		},
+		"keywords": ["pleasure", "growth", "fruitfulness", "creative inspiration"]
+	},
+	"4": {
+		"id": "emperor",
+		"index": 4,
+		"type": "trump",
+		"name": "The Emperor",
+		"number": 4,
+		"path": 15,
+		"hebrew_letter": "heh",
+		"attribution": {
+			"kind": "sign",
+			"value": "aries"
+		},
+		"connects": [
+			"chokmah",
+			"tiphareth"
+		],
+		"gd_title": "Sun of the Morning, Chief among the Mighty",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Stability, power, reason, will",
+			"gd": "War, conquest, victory, strife, ambition",
+			"personal": ""
+		},
+		"keywords": ["control", "rigidity", "conquest", "stability"]
+	},
+	"5": {
+		"id": "hierophant",
+		"index": 5,
+		"type": "trump",
+		"name": "The Hierophant",
+		"number": 5,
+		"path": 16,
+		"hebrew_letter": "vav",
+		"attribution": {
+			"kind": "sign",
+			"value": "taurus"
+		},
+		"connects": [
+			"chokmah",
+			"chesed"
+		],
+		"gd_title": "Magus of the Eternal",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Marriage, alliance, concord, inspiration",
+			"gd": "Divine wisdom, manifestation, explanation, teaching",
+			"personal": ""
+		},
+		"keywords": ["teaching", "intuition", "union", "alliance"]
+	},
+	"6": {
+		"id": "lovers",
+		"index": 6,
+		"type": "trump",
+		"name": "The Lovers",
+		"number": 6,
+		"path": 17,
+		"hebrew_letter": "zayin",
+		"attribution": {
+			"kind": "sign",
+			"value": "gemini"
+		},
+		"connects": [
+			"binah",
+			"tiphareth"
+		],
+		"gd_title": "Children of the Voice, the Oracle of the Mighty Gods",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Attraction, love, beauty, trials overcome",
+			"gd": "Inspiration, motive, impulse",
+			"personal": ""
+		},
+		"keywords": ["choice", "attraction", "love", "impulse"]
+	},
+	"7": {
+		"id": "chariot",
+		"index": 7,
+		"type": "trump",
+		"name": "The Chariot",
+		"number": 7,
+		"path": 18,
+		"hebrew_letter": "cheth",
+		"attribution": {
+			"kind": "sign",
+			"value": "cancer"
+		},
+		"connects": [
+			"binah",
+			"geburah"
+		],
+		"gd_title": "Child of the Powers of the Waters, Lord of the Triumph of Light",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "War, triumph, vengeance, providence",
+			"gd": "Triumph, victory, health, success",
+			"personal": ""
+		},
+		"keywords": ["victory", "triumph over opposition", "vigor", "new direction"]
+	},
+	"8": {
+		"id": "strength",
+		"index": 8,
+		"type": "trump",
+		"name": "Strength",
+		"number": 8,
+		"path": 19,
+		"hebrew_letter": "teth",
+		"attribution": {
+			"kind": "sign",
+			"value": "leo"
+		},
+		"connects": [
+			"chesed",
+			"geburah"
+		],
+		"gd_title": "Daughter of the Flaming Sword, Leader of the Lion",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Power, energy, action, courage",
+			"gd": "Fortitude, courage, power not arrested",
+			"personal": ""
+		},
+		"keywords": ["courage", "fortitude", "joy", "power"]
+	},
+	"9": {
+		"id": "hermit",
+		"index": 9,
+		"type": "trump",
+		"name": "The Hermit",
+		"number": 9,
+		"path": 20,
+		"hebrew_letter": "yod",
+		"attribution": {
+			"kind": "sign",
+			"value": "virgo"
+		},
+		"connects": [
+			"chesed",
+			"tiphareth"
+		],
+		"gd_title": "Prophet of the Eternal, Magus of the Voice of Power",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Prudence, circumspection, concealment",
+			"gd": "Wisdom sought for and obtained from above",
+			"personal": ""
+		},
+		"keywords": ["self-reliance", "insight", "prudence", "wisdom sought"]
+	},
+	"10": {
+		"id": "wheel_of_fortune",
+		"index": 10,
+		"type": "trump",
+		"name": "Wheel of Fortune",
+		"number": 10,
+		"path": 21,
+		"hebrew_letter": "kaph",
+		"attribution": {
+			"kind": "planet",
+			"value": "jupiter"
+		},
+		"connects": [
+			"chesed",
+			"netzach"
+		],
+		"gd_title": "Lord of the Forces of Life",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Destiny, fortune, success, luck",
+			"gd": "Good fortune and happiness, intoxication with success",
+			"personal": ""
+		},
+		"keywords": ["good fortune", "cycles", "destiny", "sudden gain"]
+	},
+	"11": {
+		"id": "justice",
+		"index": 11,
+		"type": "trump",
+		"name": "Justice",
+		"number": 11,
+		"path": 22,
+		"hebrew_letter": "lamed",
+		"attribution": {
+			"kind": "sign",
+			"value": "libra"
+		},
+		"connects": [
+			"geburah",
+			"tiphareth"
+		],
+		"gd_title": "Daughter of the Lords of Truth, the Ruler of the Balance",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Equity, rightness, law in all its departments",
+			"gd": "Eternal justice and balance; strength and force, a court of law, trial, etc.",
+			"personal": ""
+		},
+		"keywords": ["balance", "decision", "trial", "law"]
+	},
+	"12": {
+		"id": "hanged_man",
+		"index": 12,
+		"type": "trump",
+		"name": "The Hanged Man",
+		"number": 12,
+		"path": 23,
+		"hebrew_letter": "mem",
+		"attribution": {
+			"kind": "element",
+			"value": "water"
+		},
+		"connects": [
+			"geburah",
+			"hod"
+		],
+		"gd_title": "Spirit of the Mighty Waters",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Trials, sacrifice, circumspection, discernment, intuition",
+			"gd": "Enforced sacrifice, punishment, loss",
+			"personal": ""
+		},
+		"keywords": ["surrender", "sacrifice", "reversal", "acceptance"]
+	},
+	"13": {
+		"id": "death",
+		"index": 13,
+		"type": "trump",
+		"name": "Death",
+		"number": 13,
+		"path": 24,
+		"hebrew_letter": "nun",
+		"attribution": {
+			"kind": "sign",
+			"value": "scorpio"
+		},
+		"connects": [
+			"tiphareth",
+			"netzach"
+		],
+		"gd_title": "Child of the Great Transformers, Lord of the Gate of Death",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "End, mortality, destruction, corruption",
+			"gd": "Time, transformation, involuntary change; sometimes, but rarely, death and destruction",
+			"personal": ""
+		},
+		"keywords": ["unexpected change", "transformation", "renewal", "ending"]
+	},
+	"14": {
+		"id": "temperance",
+		"index": 14,
+		"type": "trump",
+		"name": "Temperance",
+		"number": 14,
+		"path": 25,
+		"hebrew_letter": "samekh",
+		"attribution": {
+			"kind": "sign",
+			"value": "sagittarius"
+		},
+		"connects": [
+			"tiphareth",
+			"yesod"
+		],
+		"gd_title": "Daughter of the Reconcilers, the Bringer-forth of Life",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Economy, moderation, management, accommodation",
+			"gd": "Combination of forces, realization, action",
+			"personal": ""
+		},
+		"keywords": ["blending", "moderation", "testing", "the way of escape"]
+	},
+	"15": {
+		"id": "devil",
+		"index": 15,
+		"type": "trump",
+		"name": "The Devil",
+		"number": 15,
+		"path": 26,
+		"hebrew_letter": "ayin",
+		"attribution": {
+			"kind": "sign",
+			"value": "capricorn"
+		},
+		"connects": [
+			"tiphareth",
+			"hod"
+		],
+		"gd_title": "Lord of the Gates of Matter, Child of the Forces of Time",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Force, fatality, extraordinary efforts, violence, blindness, weakness",
+			"gd": "Materiality, material force, material temptation; sometimes obsession if associated with Key VI, The Lovers",
+			"personal": ""
+		},
+		"keywords": ["fear", "blind impulse", "illusion", "material temptation"]
+	},
+	"16": {
+		"id": "tower",
+		"index": 16,
+		"type": "trump",
+		"name": "The Tower",
+		"number": 16,
+		"path": 27,
+		"hebrew_letter": "peh",
+		"attribution": {
+			"kind": "planet",
+			"value": "mars"
+		},
+		"connects": [
+			"netzach",
+			"hod"
+		],
+		"gd_title": "Lord of the Hosts of the Mighty",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Distress, adversity, disgrace, deception, ruin, imprisonment",
+			"gd": "Ambition, fighting, war, courage; in certain combinations, destruction, danger, fall, ruin",
+			"personal": ""
+		},
+		"keywords": ["collapse", "shattered illusion", "conflict", "ruin"]
+	},
+	"17": {
+		"id": "star",
+		"index": 17,
+		"type": "trump",
+		"name": "The Star",
+		"number": 17,
+		"path": 28,
+		"hebrew_letter": "tzaddi",
+		"attribution": {
+			"kind": "sign",
+			"value": "aquarius"
+		},
+		"connects": [
+			"netzach",
+			"yesod"
+		],
+		"gd_title": "Daughter of the Firmament, Dweller between the Waters",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Hope, bright prospects; loss, privation, abandonment",
+			"gd": "Hope, faith, unexpected help; but also dreaminess, deceived hope",
+			"personal": ""
+		},
+		"keywords": ["hope", "faith", "revelation", "clarity"]
+	},
+	"18": {
+		"id": "moon",
+		"index": 18,
+		"type": "trump",
+		"name": "The Moon",
+		"number": 18,
+		"path": 29,
+		"hebrew_letter": "qoph",
+		"attribution": {
+			"kind": "sign",
+			"value": "pisces"
+		},
+		"connects": [
+			"netzach",
+			"malkuth"
+		],
+		"gd_title": "Ruler of Flux and Reflux, Child of the Sons of the Mighty",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Deception, darkness, danger, hidden enemies, occult force, inconstancy",
+			"gd": "Dissatisfaction, voluntary change; error, lying, falsity, deception",
+			"personal": ""
+		},
+		"keywords": ["deception", "toilsome struggle", "hidden danger", "brink of change"]
+	},
+	"19": {
+		"id": "sun",
+		"index": 19,
+		"type": "trump",
+		"name": "The Sun",
+		"number": 19,
+		"path": 30,
+		"hebrew_letter": "resh",
+		"attribution": {
+			"kind": "planet",
+			"value": "sun"
+		},
+		"connects": [
+			"hod",
+			"yesod"
+		],
+		"gd_title": "Lord of the Fire of the World",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Material happiness, fortunate marriage, contentment",
+			"gd": "Glory, gain, riches; display",
+			"personal": ""
+		},
+		"keywords": ["union", "frankness", "gain", "contentment"]
+	},
+	"20": {
+		"id": "judgement",
+		"index": 20,
+		"type": "trump",
+		"name": "Judgement",
+		"number": 20,
+		"path": 31,
+		"hebrew_letter": "shin",
+		"attribution": {
+			"kind": "element",
+			"value": "fire"
+		},
+		"secondary_attribution": {
+			"kind": "element",
+			"value": "spirit"
+		},
+		"connects": [
+			"hod",
+			"malkuth"
+		],
+		"gd_title": "Spirit of the Primal Fire",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Change of position, renewal, outcome, decision, deliberation",
+			"gd": "Final decision, judgement, sentence, determination of a matter",
+			"personal": ""
+		},
+		"keywords": ["final decision", "release", "change of role", "renewal"]
+	},
+	"21": {
+		"id": "world",
+		"index": 21,
+		"type": "trump",
+		"name": "The World",
+		"number": 21,
+		"path": 32,
+		"hebrew_letter": "tav",
+		"attribution": {
+			"kind": "planet",
+			"value": "saturn"
+		},
+		"secondary_attribution": {
+			"kind": "element",
+			"value": "earth"
+		},
+		"connects": [
+			"yesod",
+			"malkuth"
+		],
+		"gd_title": "Great One of the Night of Time",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Assured success, recompense; change of place; inertia, permanence",
+			"gd": "The matter itself; synthesis, world, kingdom",
+			"personal": ""
+		},
+		"keywords": ["outcome", "endurance", "completion", "dominion or bondage"]
+	},
+	"22": {
+		"id": "wands_ace",
+		"index": 22,
+		"type": "pip",
+		"name": "Ace of Wands",
+		"suit": "wands",
+		"rank": 1,
+		"sephira": "kether",
+		"element": "fire",
+		"decan": null,
+		"gd_title": "Root of the Powers of Fire",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "The starting point of an enterprise",
+			"gd": "The Root of the Powers of Fire",
+			"personal": ""
+		},
+		"keywords": ["unconquerable strength", "will", "renewed energy", "beginning"]
+	},
+	"23": {
+		"id": "wands_2",
+		"index": 23,
+		"type": "pip",
+		"name": "Two of Wands",
+		"suit": "wands",
+		"rank": 2,
+		"sephira": "chokmah",
+		"element": "fire",
+		"decan": {
+			"planet": "mars",
+			"sign": "aries",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Dominion",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Dominion",
+			"gd": "Lord of Dominion",
+			"personal": ""
+		},
+		"keywords": ["dominion", "control", "resolution"]
+	},
+	"24": {
+		"id": "wands_3",
+		"index": 24,
+		"type": "pip",
+		"name": "Three of Wands",
+		"suit": "wands",
+		"rank": 3,
+		"sephira": "binah",
+		"element": "fire",
+		"decan": {
+			"planet": "sun",
+			"sign": "aries",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Established Strength",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Established Strength",
+			"gd": "Lord of Established Strength",
+			"personal": ""
+		},
+		"keywords": ["realized hope", "established strength", "right path"]
+	},
+	"25": {
+		"id": "wands_4",
+		"index": 25,
+		"type": "pip",
+		"name": "Four of Wands",
+		"suit": "wands",
+		"rank": 4,
+		"sephira": "chesed",
+		"element": "fire",
+		"decan": {
+			"planet": "venus",
+			"sign": "aries",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Perfected Work",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Perfected Work",
+			"gd": "Lord of Perfected Work",
+			"personal": ""
+		},
+		"keywords": ["perfected work", "completion", "conclusions"]
+	},
+	"26": {
+		"id": "wands_5",
+		"index": 26,
+		"type": "pip",
+		"name": "Five of Wands",
+		"suit": "wands",
+		"rank": 5,
+		"sephira": "geburah",
+		"element": "fire",
+		"decan": {
+			"planet": "saturn",
+			"sign": "leo",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Strife",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Strenuous competition",
+			"gd": "Lord of Strife",
+			"personal": ""
+		},
+		"keywords": ["strife", "effort", "competition"]
+	},
+	"27": {
+		"id": "wands_6",
+		"index": 27,
+		"type": "pip",
+		"name": "Six of Wands",
+		"suit": "wands",
+		"rank": 6,
+		"sephira": "tiphareth",
+		"element": "fire",
+		"decan": {
+			"planet": "jupiter",
+			"sign": "leo",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Victory",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "A victor triumphing",
+			"gd": "Lord of Victory",
+			"personal": ""
+		},
+		"keywords": ["victory", "mastery", "success"]
+	},
+	"28": {
+		"id": "wands_7",
+		"index": 28,
+		"type": "pip",
+		"name": "Seven of Wands",
+		"suit": "wands",
+		"rank": 7,
+		"sephira": "netzach",
+		"element": "fire",
+		"decan": {
+			"planet": "mars",
+			"sign": "leo",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Valour",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Valour",
+			"gd": "Lord of Valour",
+			"personal": ""
+		},
+		"keywords": ["valour", "obstacles", "small victory", "standing firm"]
+	},
+	"29": {
+		"id": "wands_8",
+		"index": 29,
+		"type": "pip",
+		"name": "Eight of Wands",
+		"suit": "wands",
+		"rank": 8,
+		"sephira": "hod",
+		"element": "fire",
+		"decan": {
+			"planet": "mercury",
+			"sign": "sagittarius",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Swiftness",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Swiftness",
+			"gd": "Lord of Swiftness",
+			"personal": ""
+		},
+		"keywords": ["swiftness", "rush of energy", "new outlook"]
+	},
+	"30": {
+		"id": "wands_9",
+		"index": 30,
+		"type": "pip",
+		"name": "Nine of Wands",
+		"suit": "wands",
+		"rank": 9,
+		"sephira": "yesod",
+		"element": "fire",
+		"decan": {
+			"planet": "moon",
+			"sign": "sagittarius",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Great Strength",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Strength in opposition",
+			"gd": "Lord of Great Strength",
+			"personal": ""
+		},
+		"keywords": ["great strength", "inner force", "self-reliance"]
+	},
+	"31": {
+		"id": "wands_10",
+		"index": 31,
+		"type": "pip",
+		"name": "Ten of Wands",
+		"suit": "wands",
+		"rank": 10,
+		"sephira": "malkuth",
+		"element": "fire",
+		"decan": {
+			"planet": "saturn",
+			"sign": "sagittarius",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Oppression",
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Oppression",
+			"gd": "Lord of Oppression",
+			"personal": ""
+		},
+		"keywords": ["oppression", "burden", "losing sight of the goal"]
+	},
+	"32": {
+		"id": "wands_page",
+		"index": 32,
+		"type": "court",
+		"name": "Page of Wands",
+		"suit": "wands",
+		"rws_rank": "page",
+		"gd_rank": "princess",
+		"gd_title": "Princess of the Shining Flame; Rose of the Palace of Fire",
+		"gd_title_elemental": "Princess and Empress of the Salamanders",
+		"element": "fire",
+		"sub_element": "earth",
+		"family_role": "daughter",
+		"zodiac_span": null,
+		"predominant_sign": null,
+		"decans_ruled": null,
+		"throne": "wands_10",
+		"elemental_throne": {
+			"ace": "wands_ace",
+			"trump": "judgement"
+		},
+		"archetype_trump": "strength",
+		"hulse_path": {
+			"number": 36,
+			"connects": [
+				"chokmah",
+				"malkuth"
+			]
+		},
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Envoy, faithful, a lover; indecision",
+			"gd": "Brilliance, courage, beauty, force, sudden in anger or love, desire or power; ill-dignified: unstable",
+			"personal": ""
+		},
+		"keywords": ["daring", "brilliance", "impatience", "instability"]
+	},
+	"33": {
+		"id": "wands_knight",
+		"index": 33,
+		"type": "court",
+		"name": "Knight of Wands",
+		"suit": "wands",
+		"rws_rank": "knight",
+		"gd_rank": "knight",
+		"gd_title": "Lord of the Flame and the Lightning; King of the Spirits of Fire",
+		"gd_title_elemental": "King of the Salamanders",
+		"element": "fire",
+		"sub_element": "fire",
+		"family_role": "father",
+		"zodiac_span": {
+			"from": "20 scorpio",
+			"to": "20 sagittarius"
+		},
+		"predominant_sign": "sagittarius",
+		"decans_ruled": [
+			"cups_7",
+			"wands_8",
+			"wands_9"
+		],
+		"throne": "wands_2",
+		"hulse_path": {
+			"number": 33,
+			"connects": [
+				"chokmah",
+				"geburah"
+			]
+		},
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "A dark young man; journey; discord",
+			"gd": "Active, fierce, sudden and impetuous; ill-dignified: cruel",
+			"personal": ""
+		},
+		"keywords": ["pursuit", "fierce", "impetuous", "pride"]
+	},
+	"34": {
+		"id": "wands_queen",
+		"index": 34,
+		"type": "court",
+		"name": "Queen of Wands",
+		"suit": "wands",
+		"rws_rank": "queen",
+		"gd_rank": "queen",
+		"gd_title": "Queen of the Thrones of Flames",
+		"gd_title_elemental": "Queen of the Salamanders",
+		"element": "fire",
+		"sub_element": "water",
+		"family_role": "mother",
+		"zodiac_span": {
+			"from": "20 pisces",
+			"to": "20 aries"
+		},
+		"predominant_sign": "aries",
+		"decans_ruled": [
+			"cups_10",
+			"wands_2",
+			"wands_3"
+		],
+		"throne": "wands_3",
+		"hulse_path": {
+			"number": 34,
+			"connects": [
+				"chokmah",
+				"hod"
+			]
+		},
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Magnetic personality, love of money or success, a dark young woman",
+			"gd": "Adaptability, steady rule; great attractive power; ill-dignified: tyrannical",
+			"personal": ""
+		},
+		"keywords": ["self-command", "magnetism", "steady rule", "domineering"]
+	},
+	"35": {
+		"id": "wands_king",
+		"index": 35,
+		"type": "court",
+		"name": "King of Wands",
+		"suit": "wands",
+		"rws_rank": "king",
+		"gd_rank": "prince",
+		"gd_title": "Prince of the Chariot of Fire",
+		"gd_title_elemental": "Prince and Emperor of Salamanders",
+		"element": "fire",
+		"sub_element": "air",
+		"family_role": "son",
+		"zodiac_span": {
+			"from": "20 cancer",
+			"to": "20 leo"
+		},
+		"predominant_sign": "leo",
+		"decans_ruled": [
+			"cups_4",
+			"wands_5",
+			"wands_6"
+		],
+		"throne": "wands_6",
+		"hulse_path": {
+			"number": 35,
+			"connects": [
+				"chokmah",
+				"yesod"
+			]
+		},
+		"dignity_element": "fire",
+		"meanings": {
+			"waite": "Noble, ardent, animated, impassioned, honest; good but severe",
+			"gd": "Swift, strong, hasty, rather violent yet just, generous, and noble; ill-dignified: intolerant",
+			"personal": ""
+		},
+		"keywords": ["generous", "noble", "hasty", "spotlight"]
+	},
+	"36": {
+		"id": "cups_ace",
+		"index": 36,
+		"type": "pip",
+		"name": "Ace of Cups",
+		"suit": "cups",
+		"rank": 1,
+		"sephira": "kether",
+		"element": "water",
+		"decan": null,
+		"gd_title": "Root of the Powers of Water",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "House of the True Heart",
+			"gd": "Root of the Powers of Water",
+			"personal": ""
+		},
+		"keywords": ["love", "fertility", "emotion", "true heart"]
+	},
+	"37": {
+		"id": "cups_2",
+		"index": 37,
+		"type": "pip",
+		"name": "Two of Cups",
+		"suit": "cups",
+		"rank": 2,
+		"sephira": "chokmah",
+		"element": "water",
+		"decan": {
+			"planet": "venus",
+			"sign": "cancer",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Love",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Love",
+			"gd": "Lord of Love",
+			"personal": ""
+		},
+		"keywords": ["love", "harmony", "reflection"]
+	},
+	"38": {
+		"id": "cups_3",
+		"index": 38,
+		"type": "pip",
+		"name": "Three of Cups",
+		"suit": "cups",
+		"rank": 3,
+		"sephira": "binah",
+		"element": "water",
+		"decan": {
+			"planet": "mercury",
+			"sign": "cancer",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Abundance",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Pleasure of the Senses",
+			"gd": "Lord of Abundance",
+			"personal": ""
+		},
+		"keywords": ["abundance", "union", "merriment", "hospitality"]
+	},
+	"39": {
+		"id": "cups_4",
+		"index": 39,
+		"type": "pip",
+		"name": "Four of Cups",
+		"suit": "cups",
+		"rank": 4,
+		"sephira": "chesed",
+		"element": "water",
+		"decan": {
+			"planet": "moon",
+			"sign": "cancer",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Blended Pleasure",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Blended Pleasures",
+			"gd": "Lord of Blended Pleasure",
+			"personal": ""
+		},
+		"keywords": ["fulfillment", "luxury", "disenchantment"]
+	},
+	"40": {
+		"id": "cups_5",
+		"index": 40,
+		"type": "pip",
+		"name": "Five of Cups",
+		"suit": "cups",
+		"rank": 5,
+		"sephira": "geburah",
+		"element": "water",
+		"decan": {
+			"planet": "mars",
+			"sign": "scorpio",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Loss in Pleasure",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Loss, but something remains over",
+			"gd": "Lord of Loss in Pleasure",
+			"personal": ""
+		},
+		"keywords": ["disappointment", "loss in pleasure", "something remains"]
+	},
+	"41": {
+		"id": "cups_6",
+		"index": 41,
+		"type": "pip",
+		"name": "Six of Cups",
+		"suit": "cups",
+		"rank": 6,
+		"sephira": "tiphareth",
+		"element": "water",
+		"decan": {
+			"planet": "sun",
+			"sign": "scorpio",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Pleasure",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Happiness",
+			"gd": "Lord of Pleasure",
+			"personal": ""
+		},
+		"keywords": ["pleasure", "company", "beginning of gain", "naivety"]
+	},
+	"42": {
+		"id": "cups_7",
+		"index": 42,
+		"type": "pip",
+		"name": "Seven of Cups",
+		"suit": "cups",
+		"rank": 7,
+		"sephira": "netzach",
+		"element": "water",
+		"decan": {
+			"planet": "venus",
+			"sign": "scorpio",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Illusionary Success",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Desire",
+			"gd": "Lord of Illusionary Success",
+			"personal": ""
+		},
+		"keywords": ["illusion", "fantasy", "intoxication", "desire"]
+	},
+	"43": {
+		"id": "cups_8",
+		"index": 43,
+		"type": "pip",
+		"name": "Eight of Cups",
+		"suit": "cups",
+		"rank": 8,
+		"sephira": "hod",
+		"element": "water",
+		"decan": {
+			"planet": "saturn",
+			"sign": "pisces",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Abandoned Success",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Deserting an undertaking",
+			"gd": "Lord of Abandoned Success",
+			"personal": ""
+		},
+		"keywords": ["regret", "abandoned success", "letting go"]
+	},
+	"44": {
+		"id": "cups_9",
+		"index": 44,
+		"type": "pip",
+		"name": "Nine of Cups",
+		"suit": "cups",
+		"rank": 9,
+		"sephira": "yesod",
+		"element": "water",
+		"decan": {
+			"planet": "jupiter",
+			"sign": "pisces",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Material Happiness",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Success",
+			"gd": "Lord of Material Happiness",
+			"personal": ""
+		},
+		"keywords": ["happiness", "inner peace", "emotional control"]
+	},
+	"45": {
+		"id": "cups_10",
+		"index": 45,
+		"type": "pip",
+		"name": "Ten of Cups",
+		"suit": "cups",
+		"rank": 10,
+		"sephira": "malkuth",
+		"element": "water",
+		"decan": {
+			"planet": "mars",
+			"sign": "pisces",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Perfected Success",
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Contentment",
+			"gd": "Lord of Perfected Success",
+			"personal": ""
+		},
+		"keywords": ["perfected success", "family", "emotional satisfaction"]
+	},
+	"46": {
+		"id": "cups_page",
+		"index": 46,
+		"type": "court",
+		"name": "Page of Cups",
+		"suit": "cups",
+		"rws_rank": "page",
+		"gd_rank": "princess",
+		"gd_title": "Princess of the Waters; Lotus of the Palace of the Floods",
+		"gd_title_elemental": "Princess and Empress of the Nymphs and Undines",
+		"element": "water",
+		"sub_element": "earth",
+		"family_role": "daughter",
+		"zodiac_span": null,
+		"predominant_sign": null,
+		"decans_ruled": null,
+		"throne": "cups_10",
+		"elemental_throne": {
+			"ace": "cups_ace",
+			"trump": "hanged_man"
+		},
+		"archetype_trump": "high_priestess",
+		"hulse_path": {
+			"number": 40,
+			"connects": [
+				"binah",
+				"malkuth"
+			]
+		},
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "The mind taking form, reflection, meditation; studious youth, news, message",
+			"gd": "Sweetness, poetry, gentleness, kindness; imagination, dreamy; ill-dignified: luxurious",
+			"personal": ""
+		},
+		"keywords": ["receptive", "romantic", "dreamy", "message"]
+	},
+	"47": {
+		"id": "cups_knight",
+		"index": 47,
+		"type": "court",
+		"name": "Knight of Cups",
+		"suit": "cups",
+		"rws_rank": "knight",
+		"gd_rank": "knight",
+		"gd_title": "Lord of the Waves and the Waters, King of the Hosts of the Sea",
+		"gd_title_elemental": "King of Undines and Nymphs",
+		"element": "water",
+		"sub_element": "fire",
+		"family_role": "father",
+		"zodiac_span": {
+			"from": "20 aquarius",
+			"to": "20 pisces"
+		},
+		"predominant_sign": "pisces",
+		"decans_ruled": [
+			"swords_7",
+			"cups_8",
+			"cups_9"
+		],
+		"throne": "cups_2",
+		"hulse_path": {
+			"number": 37,
+			"connects": [
+				"binah",
+				"chesed"
+			]
+		},
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "The higher graces of imagination, arrival, approach, advances, proposition",
+			"gd": "Graceful, Venusian, indolent but enthusiastic if roused; ill-dignified: sensual",
+			"personal": ""
+		},
+		"keywords": ["seeking love", "poetic", "sensual", "proposition"]
+	},
+	"48": {
+		"id": "cups_queen",
+		"index": 48,
+		"type": "court",
+		"name": "Queen of Cups",
+		"suit": "cups",
+		"rws_rank": "queen",
+		"gd_rank": "queen",
+		"gd_title": "Queen of the Thrones of the Waters",
+		"gd_title_elemental": "Queen of Nymphs and Undines",
+		"element": "water",
+		"sub_element": "water",
+		"family_role": "mother",
+		"zodiac_span": {
+			"from": "20 gemini",
+			"to": "20 cancer"
+		},
+		"predominant_sign": "cancer",
+		"decans_ruled": [
+			"swords_10",
+			"cups_2",
+			"cups_3"
+		],
+		"throne": "cups_3",
+		"hulse_path": {
+			"number": 38,
+			"connects": [
+				"binah",
+				"netzach"
+			]
+		},
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "The gift of vision; loving intelligence; beautiful, fair, dreamy, happiness, pleasure",
+			"gd": "Imaginative; poetic, coquettish, good-natured, underneath a dreamy appearance; ill-dignified: very much affected by other influences",
+			"personal": ""
+		},
+		"keywords": ["patience", "imagination", "kindness", "impressionable"]
+	},
+	"49": {
+		"id": "cups_king",
+		"index": 49,
+		"type": "court",
+		"name": "King of Cups",
+		"suit": "cups",
+		"rws_rank": "king",
+		"gd_rank": "prince",
+		"gd_title": "Prince of the Chariot of the Waters",
+		"gd_title_elemental": "Prince and Emperor of Nymphs and Undines",
+		"element": "water",
+		"sub_element": "air",
+		"family_role": "son",
+		"zodiac_span": {
+			"from": "20 libra",
+			"to": "20 scorpio"
+		},
+		"predominant_sign": "scorpio",
+		"decans_ruled": [
+			"swords_4",
+			"cups_5",
+			"cups_6"
+		],
+		"throne": "cups_6",
+		"hulse_path": {
+			"number": 39,
+			"connects": [
+				"binah",
+				"yesod"
+			]
+		},
+		"dignity_element": "water",
+		"meanings": {
+			"waite": "Creative intelligence, man of business, law or divinity; science, law, art",
+			"gd": "Subtle, violent, a fierce nature with calm exterior; powerful for good or evil, but more attracted to evil, if allied with apparent power or wisdom; ill-dignified: merciless",
+			"personal": ""
+		},
+		"keywords": ["subtle", "secretive", "calm surface", "hidden passion"]
+	},
+	"50": {
+		"id": "swords_ace",
+		"index": 50,
+		"type": "pip",
+		"name": "Ace of Swords",
+		"suit": "swords",
+		"rank": 1,
+		"sephira": "kether",
+		"element": "air",
+		"decan": null,
+		"gd_title": "Root of the Powers of Air",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Triumph of Force",
+			"gd": "Root of the Powers of Air",
+			"personal": ""
+		},
+		"keywords": ["new idea", "truth", "calling on strength", "force"]
+	},
+	"51": {
+		"id": "swords_2",
+		"index": 51,
+		"type": "pip",
+		"name": "Two of Swords",
+		"suit": "swords",
+		"rank": 2,
+		"sephira": "chokmah",
+		"element": "air",
+		"decan": {
+			"planet": "moon",
+			"sign": "libra",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Peace Restored",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Equipoise",
+			"gd": "Lord of Peace Restored",
+			"personal": ""
+		},
+		"keywords": ["peace restored", "truce in a quarrel", "equipoise"]
+	},
+	"52": {
+		"id": "swords_3",
+		"index": 52,
+		"type": "pip",
+		"name": "Three of Swords",
+		"suit": "swords",
+		"rank": 3,
+		"sephira": "binah",
+		"element": "air",
+		"decan": {
+			"planet": "saturn",
+			"sign": "libra",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Sorrow",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Mental alienation",
+			"gd": "Lord of Sorrow",
+			"personal": ""
+		},
+		"keywords": ["sorrow", "mental anguish", "acceptance"]
+	},
+	"53": {
+		"id": "swords_4",
+		"index": 53,
+		"type": "pip",
+		"name": "Four of Swords",
+		"suit": "swords",
+		"rank": 4,
+		"sephira": "chesed",
+		"element": "air",
+		"decan": {
+			"planet": "jupiter",
+			"sign": "libra",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Rest from Strife",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Retreat",
+			"gd": "Lord of Rest from Strife",
+			"personal": ""
+		},
+		"keywords": ["rest", "truce", "retreat", "recovery"]
+	},
+	"54": {
+		"id": "swords_5",
+		"index": 54,
+		"type": "pip",
+		"name": "Five of Swords",
+		"suit": "swords",
+		"rank": 5,
+		"sephira": "geburah",
+		"element": "air",
+		"decan": {
+			"planet": "venus",
+			"sign": "aquarius",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Defeat",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Loss",
+			"gd": "Lord of Defeat",
+			"personal": ""
+		},
+		"keywords": ["defeat", "criticism", "misconception", "loss"]
+	},
+	"55": {
+		"id": "swords_6",
+		"index": 55,
+		"type": "pip",
+		"name": "Six of Swords",
+		"suit": "swords",
+		"rank": 6,
+		"sephira": "tiphareth",
+		"element": "air",
+		"decan": {
+			"planet": "mercury",
+			"sign": "aquarius",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Earned Success",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Expedient",
+			"gd": "Lord of Earned Success",
+			"personal": ""
+		},
+		"keywords": ["clarity", "focus", "study", "earned success"]
+	},
+	"56": {
+		"id": "swords_7",
+		"index": 56,
+		"type": "pip",
+		"name": "Seven of Swords",
+		"suit": "swords",
+		"rank": 7,
+		"sephira": "netzach",
+		"element": "air",
+		"decan": {
+			"planet": "moon",
+			"sign": "aquarius",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Unstable Effort",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "A plan that may fail",
+			"gd": "Lord of Unstable Effort",
+			"personal": ""
+		},
+		"keywords": ["futility", "unorthodox approach", "unstable effort", "giving up"]
+	},
+	"57": {
+		"id": "swords_8",
+		"index": 57,
+		"type": "pip",
+		"name": "Eight of Swords",
+		"suit": "swords",
+		"rank": 8,
+		"sephira": "hod",
+		"element": "air",
+		"decan": {
+			"planet": "jupiter",
+			"sign": "gemini",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Shortened Force",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Opposition",
+			"gd": "Lord of Shortened Force",
+			"personal": ""
+		},
+		"keywords": ["interference", "restriction", "fear of the new", "over-detail"]
+	},
+	"58": {
+		"id": "swords_9",
+		"index": 58,
+		"type": "pip",
+		"name": "Nine of Swords",
+		"suit": "swords",
+		"rank": 9,
+		"sephira": "yesod",
+		"element": "air",
+		"decan": {
+			"planet": "mars",
+			"sign": "gemini",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Despair and Cruelty",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Despair",
+			"gd": "Lord of Despair and Cruelty",
+			"personal": ""
+		},
+		"keywords": ["despair", "indecision", "cruelty"]
+	},
+	"59": {
+		"id": "swords_10",
+		"index": 59,
+		"type": "pip",
+		"name": "Ten of Swords",
+		"suit": "swords",
+		"rank": 10,
+		"sephira": "malkuth",
+		"element": "air",
+		"decan": {
+			"planet": "sun",
+			"sign": "gemini",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Ruin",
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Desolation",
+			"gd": "Lord of Ruin",
+			"personal": ""
+		},
+		"keywords": ["ruin", "failure of plans", "surrender", "desolation"]
+	},
+	"60": {
+		"id": "swords_page",
+		"index": 60,
+		"type": "court",
+		"name": "Page of Swords",
+		"suit": "swords",
+		"rws_rank": "page",
+		"gd_rank": "princess",
+		"gd_title": "Princess of the Rushing Winds, Lotus of the Palace of Air",
+		"gd_title_elemental": "Princess and Empress of the Sylphs and Sylphides",
+		"element": "air",
+		"sub_element": "earth",
+		"family_role": "daughter",
+		"zodiac_span": null,
+		"predominant_sign": null,
+		"decans_ruled": null,
+		"throne": "swords_10",
+		"elemental_throne": {
+			"ace": "swords_ace",
+			"trump": "fool"
+		},
+		"archetype_trump": "justice",
+		"hulse_path": {
+			"number": 44,
+			"connects": [
+				"kether",
+				"hod"
+			]
+		},
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "To be alert and lithe, vigilance, examination, spying, overseeing, what is unforeseen",
+			"gd": "Wisdom, strength, acuteness, grace and dexterity; ill-dignified: cunning",
+			"personal": ""
+		},
+		"keywords": ["change of course", "clever", "vigilant", "cunning"]
+	},
+	"61": {
+		"id": "swords_knight",
+		"index": 61,
+		"type": "court",
+		"name": "Knight of Swords",
+		"suit": "swords",
+		"rws_rank": "knight",
+		"gd_rank": "knight",
+		"gd_title": "Lord of the Winds and the Breezes, King of the Spirits of Air",
+		"gd_title_elemental": "King of the Sylphs and Sylphides",
+		"element": "air",
+		"sub_element": "fire",
+		"family_role": "father",
+		"zodiac_span": {
+			"from": "20 taurus",
+			"to": "20 gemini"
+		},
+		"predominant_sign": "gemini",
+		"decans_ruled": [
+			"pentacles_7",
+			"swords_8",
+			"swords_9"
+		],
+		"throne": "swords_2",
+		"hulse_path": {
+			"number": 41,
+			"connects": [
+				"kether",
+				"chesed"
+			]
+		},
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Skill, bravery; defense, war, wrath, destruction, ruin",
+			"gd": "Active, clever, delicate, skillful; courageous but inclined to domineer, also to overvalue small things, unless well-dignified; ill-dignified: deceitful",
+			"personal": ""
+		},
+		"keywords": ["single-minded", "skillful", "domineering", "indecisive"]
+	},
+	"62": {
+		"id": "swords_queen",
+		"index": 62,
+		"type": "court",
+		"name": "Queen of Swords",
+		"suit": "swords",
+		"rws_rank": "queen",
+		"gd_rank": "queen",
+		"gd_title": "Queen of the Thrones of Air",
+		"gd_title_elemental": "Queen of the Sylphs and Sylphides",
+		"element": "air",
+		"sub_element": "water",
+		"family_role": "mother",
+		"zodiac_span": {
+			"from": "20 virgo",
+			"to": "20 libra"
+		},
+		"predominant_sign": "libra",
+		"decans_ruled": [
+			"pentacles_10",
+			"swords_2",
+			"swords_3"
+		],
+		"throne": "swords_3",
+		"hulse_path": {
+			"number": 42,
+			"connects": [
+				"kether",
+				"geburah"
+			]
+		},
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "Familiarity with sorrow, widowhood, female sadness and embarrassment, mourning, privation",
+			"gd": "Intensely perceptive, keen observation, quick, confident, often perseveringly accurate in superficial things, graceful, fond of dancing and balance; ill-dignified: unreliable",
+			"personal": ""
+		},
+		"keywords": ["poise in crisis", "perceptive", "individualist", "sorrow"]
+	},
+	"63": {
+		"id": "swords_king",
+		"index": 63,
+		"type": "court",
+		"name": "King of Swords",
+		"suit": "swords",
+		"rws_rank": "king",
+		"gd_rank": "prince",
+		"gd_title": "Prince of the Chariot of the Winds",
+		"gd_title_elemental": "Prince and Emperor of Sylphs and Sylphides",
+		"element": "air",
+		"sub_element": "air",
+		"family_role": "son",
+		"zodiac_span": {
+			"from": "20 capricorn",
+			"to": "20 aquarius"
+		},
+		"predominant_sign": "aquarius",
+		"decans_ruled": [
+			"pentacles_4",
+			"swords_5",
+			"swords_6"
+		],
+		"throne": "swords_6",
+		"hulse_path": {
+			"number": 43,
+			"connects": [
+				"kether",
+				"netzach"
+			]
+		},
+		"dignity_element": "air",
+		"meanings": {
+			"waite": "To sit in judgment, power, command, authority",
+			"gd": "Full of ideas and thoughts and designs, distrustful, suspicious, firm in friendship and enmity; overcautious; ill-dignified: harsh",
+			"personal": ""
+		},
+		"keywords": ["ideas", "judgment", "authority", "prejudice"]
+	},
+	"64": {
+		"id": "pentacles_ace",
+		"index": 64,
+		"type": "pip",
+		"name": "Ace of Pentacles",
+		"suit": "pentacles",
+		"rank": 1,
+		"sephira": "kether",
+		"element": "earth",
+		"decan": null,
+		"gd_title": "Root of the Powers of Earth",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Perfect Contentment",
+			"gd": "Root of the Powers of Earth",
+			"personal": ""
+		},
+		"keywords": ["material gain", "new project", "contentment", "money"]
+	},
+	"65": {
+		"id": "pentacles_2",
+		"index": 65,
+		"type": "pip",
+		"name": "Two of Pentacles",
+		"suit": "pentacles",
+		"rank": 2,
+		"sephira": "chokmah",
+		"element": "earth",
+		"decan": {
+			"planet": "jupiter",
+			"sign": "capricorn",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Harmonious Change",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Messages in writing",
+			"gd": "Lord of Harmonious Change",
+			"personal": ""
+		},
+		"keywords": ["change", "variety", "journey", "juggling"]
+	},
+	"66": {
+		"id": "pentacles_3",
+		"index": 66,
+		"type": "pip",
+		"name": "Three of Pentacles",
+		"suit": "pentacles",
+		"rank": 3,
+		"sephira": "binah",
+		"element": "earth",
+		"decan": {
+			"planet": "mars",
+			"sign": "capricorn",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Material Works",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Skilled labor",
+			"gd": "Lord of Material Works",
+			"personal": ""
+		},
+		"keywords": ["building", "skilled work", "business", "creation"]
+	},
+	"67": {
+		"id": "pentacles_4",
+		"index": 67,
+		"type": "pip",
+		"name": "Four of Pentacles",
+		"suit": "pentacles",
+		"rank": 4,
+		"sephira": "chesed",
+		"element": "earth",
+		"decan": {
+			"planet": "sun",
+			"sign": "capricorn",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Earthly Power",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "The surety of possessions",
+			"gd": "Lord of Earthly Power",
+			"personal": ""
+		},
+		"keywords": ["earthly power", "possessions", "holding on", "concealment"]
+	},
+	"68": {
+		"id": "pentacles_5",
+		"index": 68,
+		"type": "pip",
+		"name": "Five of Pentacles",
+		"suit": "pentacles",
+		"rank": 5,
+		"sephira": "geburah",
+		"element": "earth",
+		"decan": {
+			"planet": "mercury",
+			"sign": "taurus",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Material Trouble",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Destitution",
+			"gd": "Lord of Material Trouble",
+			"personal": ""
+		},
+		"keywords": ["loss", "worry", "material trouble", "thrift"]
+	},
+	"69": {
+		"id": "pentacles_6",
+		"index": 69,
+		"type": "pip",
+		"name": "Six of Pentacles",
+		"suit": "pentacles",
+		"rank": 6,
+		"sephira": "tiphareth",
+		"element": "earth",
+		"decan": {
+			"planet": "moon",
+			"sign": "taurus",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Material Success",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Success in life",
+			"gd": "Lord of Material Success",
+			"personal": ""
+		},
+		"keywords": ["success after work", "recognition", "influence", "occupation"]
+	},
+	"70": {
+		"id": "pentacles_7",
+		"index": 70,
+		"type": "pip",
+		"name": "Seven of Pentacles",
+		"suit": "pentacles",
+		"rank": 7,
+		"sephira": "netzach",
+		"element": "earth",
+		"decan": {
+			"planet": "saturn",
+			"sign": "taurus",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Success Unfulfilled",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Cause for anxiety regarding money",
+			"gd": "Lord of Success Unfulfilled",
+			"personal": ""
+		},
+		"keywords": ["success unfulfilled", "inactivity", "money worries"]
+	},
+	"71": {
+		"id": "pentacles_8",
+		"index": 71,
+		"type": "pip",
+		"name": "Eight of Pentacles",
+		"suit": "pentacles",
+		"rank": 8,
+		"sephira": "hod",
+		"element": "earth",
+		"decan": {
+			"planet": "sun",
+			"sign": "virgo",
+			"degrees": "0-10"
+		},
+		"gd_title": "Lord of Prudence",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Skill in crafted business",
+			"gd": "Lord of Prudence",
+			"personal": ""
+		},
+		"keywords": ["prudence", "steady effort", "persistence", "craft"]
+	},
+	"72": {
+		"id": "pentacles_9",
+		"index": 72,
+		"type": "pip",
+		"name": "Nine of Pentacles",
+		"suit": "pentacles",
+		"rank": 9,
+		"sephira": "yesod",
+		"element": "earth",
+		"decan": {
+			"planet": "venus",
+			"sign": "virgo",
+			"degrees": "10-20"
+		},
+		"gd_title": "Lord of Material Gain",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Plenty in all things",
+			"gd": "Lord of Material Gain",
+			"personal": ""
+		},
+		"keywords": ["material gain", "comfort", "security", "prosperity"]
+	},
+	"73": {
+		"id": "pentacles_10",
+		"index": 73,
+		"type": "pip",
+		"name": "Ten of Pentacles",
+		"suit": "pentacles",
+		"rank": 10,
+		"sephira": "malkuth",
+		"element": "earth",
+		"decan": {
+			"planet": "mercury",
+			"sign": "virgo",
+			"degrees": "20-30"
+		},
+		"gd_title": "Lord of Wealth",
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Gain",
+			"gd": "Lord of Wealth",
+			"personal": ""
+		},
+		"keywords": ["wealth", "result", "shrewd dealings"]
+	},
+	"74": {
+		"id": "pentacles_page",
+		"index": 74,
+		"type": "court",
+		"name": "Page of Pentacles",
+		"suit": "pentacles",
+		"rws_rank": "page",
+		"gd_rank": "princess",
+		"gd_title": "Princess of the Echoing Hills, Rose of the Palace of Earth",
+		"gd_title_elemental": "Princess and Empress of the Gnomes",
+		"element": "earth",
+		"sub_element": "earth",
+		"family_role": "daughter",
+		"zodiac_span": null,
+		"predominant_sign": null,
+		"decans_ruled": null,
+		"throne": "pentacles_10",
+		"elemental_throne": {
+			"ace": "pentacles_ace",
+			"trump": "world"
+		},
+		"archetype_trump": "empress",
+		"hulse_path": {
+			"number": 48,
+			"connects": null
+		},
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Application, study, scholarship, reflection; rule, management",
+			"gd": "Generous, kind, diligent, benevolent, careful, courageous, persevering, pitiful; ill-dignified: wasteful",
+			"personal": ""
+		},
+		"keywords": ["diligent", "careful", "quiet", "brink of change"]
+	},
+	"75": {
+		"id": "pentacles_knight",
+		"index": 75,
+		"type": "court",
+		"name": "Knight of Pentacles",
+		"suit": "pentacles",
+		"rws_rank": "knight",
+		"gd_rank": "knight",
+		"gd_title": "Lord of the Wide and Fertile Land; King of the Spirits of Earth",
+		"gd_title_elemental": "King of Gnomes",
+		"element": "earth",
+		"sub_element": "fire",
+		"family_role": "father",
+		"zodiac_span": {
+			"from": "20 leo",
+			"to": "20 virgo"
+		},
+		"predominant_sign": "virgo",
+		"decans_ruled": [
+			"wands_7",
+			"pentacles_8",
+			"pentacles_9"
+		],
+		"throne": "pentacles_2",
+		"hulse_path": {
+			"number": 45,
+			"connects": [
+				"chesed",
+				"yesod"
+			]
+		},
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Slow, enduring, heavy; utility, service, ableness, interest, responsibility",
+			"gd": "Unless very well-dignified, heavy, dull, and material; laborious, clever and patient in material matters; if ill-dignified: avaricious",
+			"personal": ""
+		},
+		"keywords": ["patient", "meticulous", "material", "dull"]
+	},
+	"76": {
+		"id": "pentacles_queen",
+		"index": 76,
+		"type": "court",
+		"name": "Queen of Pentacles",
+		"suit": "pentacles",
+		"rws_rank": "queen",
+		"gd_rank": "queen",
+		"gd_title": "Queen of the Thrones of Earth",
+		"gd_title_elemental": "Queen of Gnomes",
+		"element": "earth",
+		"sub_element": "water",
+		"family_role": "mother",
+		"zodiac_span": {
+			"from": "20 sagittarius",
+			"to": "20 capricorn"
+		},
+		"predominant_sign": "capricorn",
+		"decans_ruled": [
+			"wands_10",
+			"pentacles_2",
+			"pentacles_3"
+		],
+		"throne": "pentacles_3",
+		"hulse_path": {
+			"number": 46,
+			"connects": [
+				"chesed",
+				"malkuth"
+			]
+		},
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Greatness of soul, serious case of intelligence, opulence, generosity, liberty",
+			"gd": "Impetuous, kind, timid, rather charming, greathearted, intelligent, melancholy, truthful yet of many moods; ill-dignified: changeable",
+			"personal": ""
+		},
+		"keywords": ["ambition", "practical", "greathearted", "moody"]
+	},
+	"77": {
+		"id": "pentacles_king",
+		"index": 77,
+		"type": "court",
+		"name": "King of Pentacles",
+		"suit": "pentacles",
+		"rws_rank": "king",
+		"gd_rank": "prince",
+		"gd_title": "Prince of the Chariot of Earth",
+		"gd_title_elemental": "Prince and Emperor of Gnomes",
+		"element": "earth",
+		"sub_element": "air",
+		"family_role": "son",
+		"zodiac_span": {
+			"from": "20 aries",
+			"to": "20 taurus"
+		},
+		"predominant_sign": "taurus",
+		"decans_ruled": [
+			"wands_4",
+			"pentacles_5",
+			"pentacles_6"
+		],
+		"throne": "pentacles_6",
+		"hulse_path": {
+			"number": 47,
+			"connects": [
+				"geburah",
+				"yesod"
+			]
+		},
+		"dignity_element": "earth",
+		"meanings": {
+			"waite": "Valor, realizing intelligence, success; business, intellectual and mathematical aptitudes",
+			"gd": "Increase of matter, increase of good and evil, practically applies things, steady, reliable; ill-dignified: animal, material, stupid; slow to anger, but furious if roused",
+			"personal": ""
+		},
+		"keywords": ["steady", "reliable", "hard work", "slow to anger"]
+	}
+}

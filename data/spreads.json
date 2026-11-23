@@ -1,0 +1,250 @@
+{
+	"three_card": {
+		"name": "Past, Present, Future",
+		"positions": [
+			{
+				"id": "past",
+				"meaning": "The past: what led to the situation",
+				"x": 0.2,
+				"y": 0.5,
+				"rotation": 0
+			},
+			{
+				"id": "present",
+				"meaning": "The present: the situation as it stands",
+				"x": 0.5,
+				"y": 0.5,
+				"rotation": 0
+			},
+			{
+				"id": "future",
+				"meaning": "The future: where things are heading",
+				"x": 0.8,
+				"y": 0.5,
+				"rotation": 0
+			}
+		],
+		"dignity_adjacency": [
+			["past", "present"],
+			["present", "future"]
+		]
+	},
+	"celtic_cross": {
+		"name": "Celtic Cross (Waite)",
+		"source": "Waite 1911 order: 1 covers, 2 crosses, 3 crowns, 4 beneath, 5 behind, 6 before; the staff 7-10 from the bottom up. No significator. Dignities run along the lines: 1-2, 3-1-4, 5-1-6 and 7-8-9-10.",
+		"reading_words": "700 to 1000",
+		"card_height": 0.21,
+		"columns": 6,
+		"compact_labels": true,
+		"positions": [
+			{
+				"id": "cover",
+				"name": "covers",
+				"meaning": "What covers you: the general influence at work in the matter now",
+				"x": 0.36,
+				"y": 0.5,
+				"rotation": 0
+			},
+			{
+				"id": "cross",
+				"name": "crosses",
+				"meaning": "What crosses you: the obstacle or opposing force in the matter, for good or ill",
+				"x": 0.36,
+				"y": 0.5,
+				"rotation": 90,
+				"over": "cover"
+			},
+			{
+				"id": "crown",
+				"name": "crowns",
+				"meaning": "What crowns you: the aim or ideal, the best that can be reached, not yet made real",
+				"x": 0.36,
+				"y": 0.264,
+				"rotation": 0
+			},
+			{
+				"id": "beneath",
+				"name": "beneath",
+				"meaning": "What is beneath you: the foundation of the matter, what is already yours",
+				"x": 0.36,
+				"y": 0.736,
+				"rotation": 0
+			},
+			{
+				"id": "behind",
+				"name": "behind",
+				"meaning": "What is behind you: the influence that is passing or has just passed away",
+				"x": 0.176,
+				"y": 0.5,
+				"rotation": 0
+			},
+			{
+				"id": "before",
+				"name": "before",
+				"meaning": "What is before you: the influence coming into action in the near future",
+				"x": 0.544,
+				"y": 0.5,
+				"rotation": 0
+			},
+			{
+				"id": "self",
+				"name": "yourself",
+				"meaning": "Yourself: your own position and attitude in the matter",
+				"x": 0.9,
+				"y": 0.843,
+				"rotation": 0
+			},
+			{
+				"id": "house",
+				"name": "your house",
+				"meaning": "Your house: the people and surroundings around you, and their influence",
+				"x": 0.9,
+				"y": 0.614,
+				"rotation": 0
+			},
+			{
+				"id": "hopes_fears",
+				"name": "hopes and fears",
+				"meaning": "Your hopes and fears in the matter",
+				"x": 0.9,
+				"y": 0.386,
+				"rotation": 0
+			},
+			{
+				"id": "outcome",
+				"name": "what will come",
+				"meaning": "What will come: the outcome the other cards lead to",
+				"x": 0.9,
+				"y": 0.157,
+				"rotation": 0
+			}
+		],
+		"dignity_adjacency": [
+			["cover", "cross"],
+			["crown", "cover"],
+			["cover", "beneath"],
+			["behind", "cover"],
+			["cover", "before"],
+			["self", "house"],
+			["house", "hopes_fears"],
+			["hopes_fears", "outcome"]
+		]
+	},
+	"planetary_orbit": {
+		"name": "Rainwolf Planetary Orbit",
+		"source": "https://tarotforum.net/threads/planet-spread.62323/",
+		"reading_words": "700 to 1000",
+		"card_height": 0.19,
+		"columns": 9,
+		"compact_labels": true,
+		"positions": [
+			{
+				"id": "sun",
+				"name": "Sun",
+				"meaning": "Energy; where it comes from",
+				"x": 0.45,
+				"y": 0.45,
+				"rotation": 0
+			},
+			{
+				"id": "mercury",
+				"name": "Mercury",
+				"meaning": "Messages, advice",
+				"x": 0.59,
+				"y": 0.55,
+				"rotation": 0
+			},
+			{
+				"id": "venus",
+				"name": "Venus",
+				"meaning": "What is comfortable",
+				"x": 0.41,
+				"y": 0.71,
+				"rotation": 0
+			},
+			{
+				"id": "earth",
+				"name": "Earth",
+				"meaning": "Where you stand",
+				"x": 0.28,
+				"y": 0.51,
+				"rotation": 0
+			},
+			{
+				"id": "mars",
+				"name": "Mars",
+				"meaning": "What is active",
+				"x": 0.27,
+				"y": 0.26,
+				"rotation": 0
+			},
+			{
+				"id": "jupiter",
+				"name": "Jupiter",
+				"meaning": "What is given",
+				"x": 0.47,
+				"y": 0.17,
+				"rotation": 0
+			},
+			{
+				"id": "saturn",
+				"name": "Saturn",
+				"meaning": "What is restricted",
+				"x": 0.7,
+				"y": 0.24,
+				"rotation": 0
+			},
+			{
+				"id": "uranus",
+				"name": "Uranus",
+				"meaning": "What is unique",
+				"x": 0.83,
+				"y": 0.56,
+				"rotation": 0
+			},
+			{
+				"id": "neptune",
+				"name": "Neptune",
+				"meaning": "Where your imagination can lead you",
+				"x": 0.61,
+				"y": 0.87,
+				"rotation": 0
+			},
+			{
+				"id": "pluto",
+				"name": "Pluto",
+				"meaning": "What must change",
+				"x": 0.08,
+				"y": 0.8,
+				"rotation": 0
+			}
+		],
+		"dignity_adjacency": [
+			["sun", "mercury"],
+			["mercury", "venus"],
+			["venus", "earth"],
+			["earth", "mars"],
+			["mars", "jupiter"],
+			["jupiter", "saturn"],
+			["saturn", "uranus"],
+			["uranus", "neptune"],
+			["neptune", "pluto"]
+		]
+	},
+	"single": {
+		"name": "One card",
+		"source": "A single card drawn for the question. With no neighbours it is neither well nor ill dignified.",
+		"reading_words": "150 to 250",
+		"positions": [
+			{
+				"id": "card",
+				"name": "the card",
+				"meaning": "The card for the question: the heart of the matter",
+				"x": 0.5,
+				"y": 0.5,
+				"rotation": 0
+			}
+		],
+		"dignity_adjacency": []
+	}
+}

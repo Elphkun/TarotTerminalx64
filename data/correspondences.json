@@ -1,0 +1,428 @@
+{
+	"sephiroth": [
+		{
+			"id": "kether",
+			"number": 1,
+			"title": "Crown",
+			"planet": "primum_mobile",
+			"notes": ""
+		},
+		{
+			"id": "chokmah",
+			"number": 2,
+			"title": "Wisdom",
+			"planet": "zodiac",
+			"notes": ""
+		},
+		{
+			"id": "binah",
+			"number": 3,
+			"title": "Understanding",
+			"planet": "saturn",
+			"notes": ""
+		},
+		{
+			"id": "chesed",
+			"number": 4,
+			"title": "Mercy",
+			"planet": "jupiter",
+			"notes": ""
+		},
+		{
+			"id": "geburah",
+			"number": 5,
+			"title": "Severity",
+			"planet": "mars",
+			"notes": ""
+		},
+		{
+			"id": "tiphareth",
+			"number": 6,
+			"title": "Beauty",
+			"planet": "sun",
+			"notes": ""
+		},
+		{
+			"id": "netzach",
+			"number": 7,
+			"title": "Victory",
+			"planet": "venus",
+			"notes": ""
+		},
+		{
+			"id": "hod",
+			"number": 8,
+			"title": "Splendour",
+			"planet": "mercury",
+			"notes": ""
+		},
+		{
+			"id": "yesod",
+			"number": 9,
+			"title": "Foundation",
+			"planet": "moon",
+			"notes": ""
+		},
+		{
+			"id": "malkuth",
+			"number": 10,
+			"title": "Kingdom",
+			"planet": "elements",
+			"notes": ""
+		}
+	],
+	"elements": {
+		"fire": {
+			"suit": "wands",
+			"tetragrammaton": "yod",
+			"notes": ""
+		},
+		"water": {
+			"suit": "cups",
+			"tetragrammaton": "heh",
+			"notes": ""
+		},
+		"air": {
+			"suit": "swords",
+			"tetragrammaton": "vav",
+			"notes": ""
+		},
+		"earth": {
+			"suit": "pentacles",
+			"tetragrammaton": "heh_final",
+			"notes": ""
+		},
+		"spirit": {
+			"suit": null,
+			"tetragrammaton": "shin",
+			"notes": "Not a suit element; only appears as a secondary attribution of Judgement."
+		}
+	},
+	"signs": [
+		{
+			"id": "aries",
+			"element": "fire",
+			"quality": "cardinal"
+		},
+		{
+			"id": "taurus",
+			"element": "earth",
+			"quality": "fixed"
+		},
+		{
+			"id": "gemini",
+			"element": "air",
+			"quality": "mutable"
+		},
+		{
+			"id": "cancer",
+			"element": "water",
+			"quality": "cardinal"
+		},
+		{
+			"id": "leo",
+			"element": "fire",
+			"quality": "fixed"
+		},
+		{
+			"id": "virgo",
+			"element": "earth",
+			"quality": "mutable"
+		},
+		{
+			"id": "libra",
+			"element": "air",
+			"quality": "cardinal"
+		},
+		{
+			"id": "scorpio",
+			"element": "water",
+			"quality": "fixed"
+		},
+		{
+			"id": "sagittarius",
+			"element": "fire",
+			"quality": "mutable"
+		},
+		{
+			"id": "capricorn",
+			"element": "earth",
+			"quality": "cardinal"
+		},
+		{
+			"id": "aquarius",
+			"element": "air",
+			"quality": "fixed"
+		},
+		{
+			"id": "pisces",
+			"element": "water",
+			"quality": "mutable"
+		}
+	],
+	"planets": [
+		"saturn",
+		"jupiter",
+		"mars",
+		"sun",
+		"venus",
+		"mercury",
+		"moon"
+	],
+	"planet_elements": {
+		"sun": "fire",
+		"mars": "fire",
+		"moon": "water",
+		"venus": "water",
+		"mercury": "air",
+		"jupiter": "air",
+		"saturn": "earth"
+	},
+	"hebrew_letters": [
+		{
+			"id": "aleph",
+			"glyph": "א",
+			"value": 1,
+			"meaning": "ox",
+			"class": "mother",
+			"path": 11
+		},
+		{
+			"id": "beth",
+			"glyph": "ב",
+			"value": 2,
+			"meaning": "house",
+			"class": "double",
+			"path": 12
+		},
+		{
+			"id": "gimel",
+			"glyph": "ג",
+			"value": 3,
+			"meaning": "camel",
+			"class": "double",
+			"path": 13
+		},
+		{
+			"id": "daleth",
+			"glyph": "ד",
+			"value": 4,
+			"meaning": "door",
+			"class": "double",
+			"path": 14
+		},
+		{
+			"id": "heh",
+			"glyph": "ה",
+			"value": 5,
+			"meaning": "window",
+			"class": "single",
+			"path": 15
+		},
+		{
+			"id": "vav",
+			"glyph": "ו",
+			"value": 6,
+			"meaning": "nail",
+			"class": "single",
+			"path": 16
+		},
+		{
+			"id": "zayin",
+			"glyph": "ז",
+			"value": 7,
+			"meaning": "sword",
+			"class": "single",
+			"path": 17
+		},
+		{
+			"id": "cheth",
+			"glyph": "ח",
+			"value": 8,
+			"meaning": "fence",
+			"class": "single",
+			"path": 18
+		},
+		{
+			"id": "teth",
+			"glyph": "ט",
+			"value": 9,
+			"meaning": "serpent",
+			"class": "single",
+			"path": 19
+		},
+		{
+			"id": "yod",
+			"glyph": "י",
+			"value": 10,
+			"meaning": "hand",
+			"class": "single",
+			"path": 20
+		},
+		{
+			"id": "kaph",
+			"glyph": "כ",
+			"value": 20,
+			"meaning": "palm",
+			"class": "double",
+			"path": 21
+		},
+		{
+			"id": "lamed",
+			"glyph": "ל",
+			"value": 30,
+			"meaning": "ox-goad",
+			"class": "single",
+			"path": 22
+		},
+		{
+			"id": "mem",
+			"glyph": "מ",
+			"value": 40,
+			"meaning": "water",
+			"class": "mother",
+			"path": 23
+		},
+		{
+			"id": "nun",
+			"glyph": "נ",
+			"value": 50,
+			"meaning": "fish",
+			"class": "single",
+			"path": 24
+		},
+		{
+			"id": "samekh",
+			"glyph": "ס",
+			"value": 60,
+			"meaning": "prop",
+			"class": "single",
+			"path": 25
+		},
+		{
+			"id": "ayin",
+			"glyph": "ע",
+			"value": 70,
+			"meaning": "eye",
+			"class": "single",
+			"path": 26
+		},
+		{
+			"id": "peh",
+			"glyph": "פ",
+			"value": 80,
+			"meaning": "mouth",
+			"class": "double",
+			"path": 27
+		},
+		{
+			"id": "tzaddi",
+			"glyph": "צ",
+			"value": 90,
+			"meaning": "fish-hook",
+			"class": "single",
+			"path": 28
+		},
+		{
+			"id": "qoph",
+			"glyph": "ק",
+			"value": 100,
+			"meaning": "back of the head",
+			"class": "single",
+			"path": 29
+		},
+		{
+			"id": "resh",
+			"glyph": "ר",
+			"value": 200,
+			"meaning": "head",
+			"class": "double",
+			"path": 30
+		},
+		{
+			"id": "shin",
+			"glyph": "ש",
+			"value": 300,
+			"meaning": "tooth",
+			"class": "mother",
+			"path": 31
+		},
+		{
+			"id": "tav",
+			"glyph": "ת",
+			"value": 400,
+			"meaning": "cross",
+			"class": "double",
+			"path": 32
+		}
+	],
+	"court_ranks": {
+		"knight": {
+			"gd_rank": "knight",
+			"mathers_rank": "king",
+			"element": "fire",
+			"family_role": "father",
+			"tetragrammaton": "yod",
+			"throne_rank": 2
+		},
+		"queen": {
+			"gd_rank": "queen",
+			"mathers_rank": "queen",
+			"element": "water",
+			"family_role": "mother",
+			"tetragrammaton": "heh",
+			"throne_rank": 3
+		},
+		"king": {
+			"gd_rank": "prince",
+			"mathers_rank": "prince",
+			"element": "air",
+			"family_role": "son",
+			"tetragrammaton": "vav",
+			"throne_rank": 6
+		},
+		"page": {
+			"gd_rank": "princess",
+			"mathers_rank": "princess",
+			"element": "earth",
+			"family_role": "daughter",
+			"tetragrammaton": "heh_final",
+			"throne_rank": 10
+		}
+	},
+	"dignities": {
+		"contrary": [
+			[
+				"fire",
+				"water"
+			],
+			[
+				"air",
+				"earth"
+			]
+		],
+		"friendly": [
+			[
+				"fire",
+				"air"
+			],
+			[
+				"fire",
+				"earth"
+			],
+			[
+				"water",
+				"air"
+			],
+			[
+				"water",
+				"earth"
+			]
+		]
+	},
+	"dignity_weights": {
+		"same": 2,
+		"friendly": 1,
+		"contrary": -2
+	}
+}

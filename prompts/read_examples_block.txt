@@ -1,0 +1,6 @@
+
+Example readings follow, for style and structure only. They are about other questions and other cards; never reuse their cards or facts.
+
+<examples>
+{{examples}}
+</examples>
