@@ -10,6 +10,11 @@ interprets: it never decides an attribution or a dignity.
 
 Nothing leaves your computer unless you point the app at an online model yourself.
 
+![A Celtic Cross from question to reading: the cards are shuffled, cut, dealt and turned, the reading is written, and a card is opened beside its correspondences](.github/media/demo.webp)
+
+*Shortened, with the writing sped up. This reading took 16 seconds with
+`gemma4:26b-a4b-it-qat` on a 16 GB card.*
+
 ## Contents
 
 - [What you need](#what-you-need)
