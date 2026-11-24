@@ -9,7 +9,7 @@ func test_render_keeps_single_braces() -> void:
 
 func test_all_templates_exist_and_fill() -> void:
 	for prompt_name: String in ["classify_system", "classify_user", "read_system",
-			"read_user", "read_examples_block", "critique_system", "critique_user"]:
+			"read_harm_rule", "read_user", "read_examples_block", "critique_system", "critique_user"]:
 		assert_true(PromptTemplate.load_text(prompt_name) != "", prompt_name)
 	var summary: ReadingSummary = ReadingSummary.build(
 			db(), spread3(), three_card(["wands_2", "cups_2", "world"]), "Will it work?",
@@ -36,11 +36,29 @@ func test_parse_classification_harm() -> void:
 	assert_eq(ReadingPipeline.parse_classification("{\"harm\": true}").get("harm"), true)
 	assert_eq(ReadingPipeline.parse_classification("{\"harm\": \"True\"}").get("harm"), true,
 			"a model that quotes its true still counts")
-	assert_false(ReadingPipeline.parse_classification("{\"harm\": false}").has("harm"))
+	assert_eq(ReadingPipeline.parse_classification("{\"harm\": false}").get("harm"), false)
+	assert_eq(ReadingPipeline.parse_classification("{\"harm\": \"false\"}").get("harm"), false)
 	assert_false(ReadingPipeline.parse_classification("{\"harm\": \"maybe\"}").has("harm"),
 			"only a clear true refuses")
 	assert_false(ReadingPipeline.parse_classification("no json").has("harm"),
 			"a model that can't say lets the reading go ahead")
+
+
+## A model sent the whole rule opens ordinary readings with a refusal, so it goes only
+## with a question that was not weighed.
+func test_the_harm_rule_goes_only_with_an_unweighed_question() -> void:
+	var marker: String = "a question about doing harm"
+	for classification: Dictionary in [
+			{"question_type": "yes_no", "harm": false}, {"question_type": "yes_no"}]:
+		var summary: ReadingSummary = ReadingSummary.build(db(), spread3(),
+				three_card(["wands_2", "cups_2", "world"]), "Will I find love?", classification)
+		var system: String = ReadingPipeline.reading_messages(summary)[0]["content"]
+		assert_eq(system.contains(marker), not classification.has("harm"), str(classification))
+		assert_true(system.contains("Never advise harming anyone"), "the short rule always goes")
+		assert_false(system.contains("crisis") and classification.has("harm"))
+		assert_false(system.contains("{{"), "no placeholder left")
+	# Nothing in quotes to copy: models repeated a quoted opening word for word.
+	assert_false(PromptTemplate.load_text("read_harm_rule").contains("\""))
 
 
 func test_parse_critique() -> void:

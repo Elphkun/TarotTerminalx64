@@ -59,10 +59,12 @@ static func parse_classification(answer: String) -> Dictionary:
 			result[key] = value.strip_edges().to_lower()
 	if not QUESTION_TYPES.has(result["question_type"]):
 		result["question_type"] = DEFAULT_CLASSIFICATION["question_type"]
-	# The question asks about doing harm: the cards are not dealt (ReadingSession). Only
-	# a clear true counts; a model that can't say leaves the reading to go ahead.
-	if _as_verdict(data.get("harm")) == true:
-		result["harm"] = true
+	# Whether the question asks about doing harm: true and the cards are not dealt
+	# (ReadingSession). Left out when the model didn't say: the reading goes ahead, and
+	# harm_rule() tells the reader what to do.
+	var verdict: Variant = _as_verdict(data.get("harm"))
+	if verdict != null:
+		result["harm"] = verdict
 	return result
 
 
@@ -110,10 +112,19 @@ static func messages_length(messages: Array) -> int:
 static func reading_messages(summary: ReadingSummary) -> Array:
 	var values: Dictionary = _values(summary)
 	values["examples"] = examples_block()
+	values["harm_rule"] = harm_rule(summary.classification)
 	return [
 		{"role": "system", "content": PromptTemplate.load_and_render("read_system", values)},
 		{"role": "user", "content": PromptTemplate.load_and_render("read_user", values)},
 	]
+
+
+## What to do with a question about doing harm, for a question that was not weighed; ""
+## for one that was. Sent with every reading, models acted on it for harmless questions.
+static func harm_rule(classification: Dictionary) -> String:
+	if classification.get("harm") is bool and not classification["harm"]:
+		return ""
+	return PromptTemplate.load_and_render("read_harm_rule") + "\n"
 
 
 ## The few-shot examples, fenced off, or "" while read_examples.txt is empty or still

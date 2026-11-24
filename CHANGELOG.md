@@ -10,6 +10,9 @@
   model loads, and it used to look stuck.
 
 ### Fixed
+- Ordinary questions ("Will I find love?") could open with a refusal or a line about harm
+  before the reading. The rule behind it now goes only with a question that could not be
+  weighed.
 - A model that answered the question instead of weighing it skipped the harm check without
   a word. It is now asked again, and if it still can't say, a note under the reading says so.
 - With your own cards, positions could be filled before the harm check had finished. They
