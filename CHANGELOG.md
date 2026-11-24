@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 (not released yet)
+## 0.2.0 (2026-11-24)
 
 ### Added
 - **Re-read** reads the same cards again, so you can compare models: change the model in
