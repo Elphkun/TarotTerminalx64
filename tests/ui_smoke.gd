@@ -74,6 +74,10 @@ func _run() -> void:
 			var test_client: FakeLlmClient = FakeLlmClient.new()
 			test_client.context_window = 4096
 			return test_client
+	await process_frame
+	if DisplayServer.get_name() == "headless":
+		# A headless window is 64x64, too small for the mouse to land on the table.
+		root.size = Vector2i(1600, 900)
 	root.add_child(_app)
 	await _frames(3)
 	await _notice()
@@ -103,7 +107,10 @@ func _run() -> void:
 	if not _live:
 		await _history()
 		await _own_cards()
+		await _reread()
 		await _refused()
+		await _own_refused()
+		await _unweighed()
 		await _designer()
 		await _table_zoom()
 	_clear_folder(HISTORY_FOLDER)
@@ -496,8 +503,21 @@ func _own_cards() -> void:
 	_check(_app.settings.draw_mode == "own", "My own cards is remembered")
 	_check(screen.shuffle_button.text == "Lay out", "the button says Lay out")
 	screen.question_input.text = "Smoke question: my own cards?"
+	_fake.hold_classify = true
 	_press(screen.shuffle_button)
 	await _frames(2)
+	_check_weighing("own cards")
+	await _weigh_shot("9_own_weighing")
+	var waiting: CardView = screen.table.slot_view(0)
+	waiting.pressed.emit(waiting)
+	await _frames(1)
+	_check(not picker.visible, "a position doesn't ask for its card before the verdict")
+	await _key(KEY_SPACE)
+	_check(not picker.visible, "nor does Space")
+	_fake.release_classify()
+	await _frames(2)
+	_check(not screen.table.weighing and screen.reading_panel.status.text.begins_with("Lay out your cards"),
+			"then the positions ask (got %s)" % screen.reading_panel.status.text)
 	_check(session.step == ReadingSession.Step.DEALT and session.own_cards, "the positions wait for the cards")
 	_check(screen.table.dealt_count() == 3 and screen.table.slot_view(0).empty, "three empty positions")
 	_check(screen.turn_all_button.disabled, "nothing to turn")
@@ -560,6 +580,136 @@ func _notice() -> void:
 	_check(_app.notice == null, "an agreed notice is not shown again")
 
 
+## The reader is weighing the question, and shows it: the glow, the panel's line, the status.
+func _check_weighing(what: String) -> void:
+	var screen: ReadingScreen = _app.screen
+	_check(screen.table.weighing, "%s: the glow is on while weighing" % what)
+	_check(screen.reading_panel.phase() == "weighing" and screen.reading_panel.waiting_text().contains("weighing your question"),
+			"%s: the panel says so (got %s)" % [what, screen.reading_panel.waiting_text()])
+	_check(screen.status.text == ReadingScreen.WEIGHING,
+			"%s: the status says so (got %s)" % [what, screen.status.text])
+
+
+## A screenshot of the weighing, with the glow running for it (motion is 0 in this test).
+func _weigh_shot(shot: String) -> void:
+	if _shots_dir == "":
+		return
+	var table: TableView = _app.screen.table
+	var views: Array[CardView] = table._slots.duplicate()
+	if views.is_empty():
+		views.append(table.pile_top())
+	views[0].glow = 1.0
+	await _frames(2)
+	await _shot(shot)
+	views[0].glow = 0.0
+
+
+## Re-read: the same cards read again by another model, from the table and from the
+## history; every reading is kept.
+func _reread() -> void:
+	var screen: ReadingScreen = _app.screen
+	var session: ReadingSession = _app.session
+	_check(screen.reread_button.disabled, "nothing to read again before a reading")
+	screen.question_input.text = "Smoke question: which model?"
+	_press(screen.shuffle_button)
+	await _frames(2)
+	_press(screen.deal_button)
+	_press(screen.turn_all_button)
+	await _until(func() -> bool: return session.step == ReadingSession.Step.DONE)
+	var first: String = screen.history_path
+	var before: int = ReadingHistory.list(HISTORY_FOLDER).size()
+	var cards: Array = session.layout.map(func(entry: Dictionary) -> int: return entry["card"])
+	_check(not screen.reread_button.disabled, "a finished reading can be read again")
+
+	_fake.model_name = "second-model"
+	_fake.hold_classify = true
+	_press(screen.reread_button)
+	await _frames(2)
+	_check_weighing("a Re-read")
+	_check(screen.reread_button.disabled, "not twice at once")
+	await _weigh_shot("reread_weighing")
+	_fake.release_classify()
+	_check(screen.table.studying and not screen.table.weighing, "then the reader studies the cards")
+	await _until(func() -> bool: return session.step == ReadingSession.Step.DONE)
+	_check(session.reading_model == "second-model" and screen.reading_panel.reading().contains("canned reading"),
+			"the second model's reading comes")
+	_check(session.layout.map(func(entry: Dictionary) -> int: return entry["card"]) == cards, "of the same cards")
+	_check(screen.history_path != first and ReadingHistory.list(HISTORY_FOLDER).size() == before + 1,
+			"and is saved as its own")
+	_check(str(ReadingHistory.load_record(first).get("model")) == "fake-model", "the first one is kept")
+	await _shot("reread_done")
+
+	_fake.model_name = "third-model"
+	var dialog: HistoryDialog = _app.history_dialog
+	_press(screen.history_button)
+	await _frames(2)
+	var row: int = -1
+	for i: int in dialog.entries().size():
+		if dialog.entries()[i]["path"] == first:
+			row = i
+	dialog._select(row)
+	_check(row >= 0 and dialog.list.get_item_text(row).contains("fake-model"), "the history names the model")
+	await _shot("reread_history")
+	_press(dialog.reread_button)
+	await _until(func() -> bool: return session.step == ReadingSession.Step.DONE)
+	_check(not dialog.visible and session.reading_model == "third-model", "Re-read from the history reads again")
+	_check(session.layout.map(func(entry: Dictionary) -> int: return entry["card"]) == cards, "its own cards")
+	_check(ReadingHistory.list(HISTORY_FOLDER).size() == before + 2, "saved as its own too")
+	_fake.model_name = "fake-model"
+	_press(screen.new_button)
+	await _frames(2)
+
+
+## Own cards and a question about doing harm: the positions go, and no card is placed.
+func _own_refused() -> void:
+	var screen: ReadingScreen = _app.screen
+	var normal_reply: String = _fake.classify_reply
+	_fake.classify_reply = "{\"life_area\": \"relationships\", \"question_type\": \"yes_no\", \"harm\": true}"
+	_fake.hold_classify = true
+	screen.draw_input.select(1)
+	screen.draw_input.item_selected.emit(1)
+	screen.question_input.text = "Should I kill my best friend?"
+	_press(screen.shuffle_button)
+	await _frames(2)
+	_fake.release_classify()
+	await _frames(2)
+	_check(_app.session.refusal != "" and screen.table.dealt_count() == 0, "a refusal takes the positions away")
+	_check(screen.reading_panel.text_view.get_parsed_text().contains("won't lay out the cards"),
+			"and says why, with own cards too")
+	_check(screen.reread_button.disabled and not screen.new_button.disabled, "only New reading is left")
+	await _shot("own_refused")
+	_fake.classify_reply = normal_reply
+	_press(screen.new_button)
+	screen.draw_input.select(0)
+	screen.draw_input.item_selected.emit(0)
+	await _frames(2)
+
+
+## A model that can't say: the reading goes ahead, with a note that stays under it.
+func _unweighed() -> void:
+	var screen: ReadingScreen = _app.screen
+	var session: ReadingSession = _app.session
+	var normal_reply: String = _fake.classify_reply
+	_fake.classify_reply = "Response: focus on your colleagues."
+	screen.question_input.text = "Smoke question: an odd model?"
+	_press(screen.shuffle_button)
+	await _frames(2)
+	_press(screen.deal_button)
+	_press(screen.turn_all_button)
+	await _until(func() -> bool: return session.step == ReadingSession.Step.DONE)
+	var panel: ReadingPanel = screen.reading_panel
+	_check(panel.reading().contains("canned reading"), "a question that can't be weighed is still read")
+	_check(panel.note.visible and panel.note.text.contains("could not weigh") and panel.meter.visible,
+			"with a note beside the token line (got %s)" % panel.note.text)
+	await _shot("unweighed")
+	_fake.classify_reply = normal_reply
+	_press(screen.reread_button)
+	await _until(func() -> bool: return session.step == ReadingSession.Step.DONE)
+	_check(not panel.note.visible, "the note goes when the next model can say")
+	_press(screen.new_button)
+	await _frames(2)
+
+
 ## A question about doing harm: Deal waits while the question is weighed, then the
 ## reader refuses and no card is dealt.
 func _refused() -> void:
@@ -572,8 +722,8 @@ func _refused() -> void:
 	_press(screen.shuffle_button)
 	await _frames(2)
 	_check(screen.deal_button.disabled, "Deal waits while the question is weighed")
-	_check(screen.status.text.begins_with("The reader is weighing"),
-			"the status says the question is being weighed (got %s)" % screen.status.text)
+	_check_weighing("a shuffled deck")
+	await _weigh_shot("refused_weighing")
 	_fake.release_classify()
 	await _frames(2)
 	_check(session.refusal != "" and session.layout.is_empty(), "a question about harm deals no cards")

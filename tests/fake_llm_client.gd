@@ -8,7 +8,13 @@ const READING := "**Past: the first card**\nA canned reading for tests.\n\n**Syn
 var frames_per_token: int = 0
 ## The next call fails with this error, then the client works again.
 var fail_next: String = ""
-var classify_reply: String = "{\"life_area\": \"career\", \"timeframe\": \"this year\", \"question_type\": \"yes_no\"}"
+var classify_reply: String = "{\"life_area\": \"career\", \"timeframe\": \"this year\", \"question_type\": \"yes_no\", \"harm\": false}"
+## Classify replies to give first, one per call, before classify_reply.
+var classify_replies: Array[String] = []
+## The options of every call, in order.
+var options_seen: Array[Dictionary] = []
+## What last_model becomes: the model "chosen in Settings".
+var model_name: String = "fake-model"
 var critique_reply: String = "VERDICT: PASS"
 ## Streamed as hidden reasoning, word by word, before a streamed reading. "" for none.
 var thinking_reply: String = ""
@@ -35,13 +41,14 @@ func release_classify() -> void:
 	_classify_released.emit()
 
 
-func complete(messages: Array, stream: bool = false, _options: Dictionary = {}) -> String:
+func complete(messages: Array, stream: bool = false, options: Dictionary = {}) -> String:
 	last_error = ""
 	last_finish_reason = "stop"
 	last_usage = {}
-	last_model = "fake-model"
+	last_model = model_name
 	var system: String = messages[0]["content"] if not messages.is_empty() else ""
 	calls.append(system)
+	options_seen.append(options)
 	if fail_next != "":
 		last_error = fail_next
 		fail_next = ""
@@ -49,7 +56,7 @@ func complete(messages: Array, stream: bool = false, _options: Dictionary = {}) 
 	if system.contains("sort tarot questions"):
 		if hold_classify:
 			await _classify_released
-		return classify_reply
+		return classify_reply if classify_replies.is_empty() else str(classify_replies.pop_front())
 	if system.contains("You check tarot readings"):
 		return critique_reply
 	if not stream:

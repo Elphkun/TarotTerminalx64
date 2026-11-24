@@ -12,6 +12,8 @@
 #   bash tools/build_windows.sh [--debug] [--no-decks]
 # --debug exports a debug build, which also writes TarotTerminal.console.exe for logs.
 # --no-decks skips copying decks (they are only copied when newer anyway).
+# The build stops if the project, or what was built, holds your own server address or API
+# key (tools/check_private.sh).
 set -euo pipefail
 
 GODOT="${GODOT:-/c/Users/elphk/Godot/Godot_v4.7.2-stable_win64_console.exe}"
@@ -26,6 +28,9 @@ for arg in "$@"; do
 		*) echo "unknown option: $arg" >&2; exit 2 ;;
 	esac
 done
+
+# Before exporting: packed scripts are compressed, so an address in one shows only here.
+bash tools/check_private.sh || { echo "build stopped: take the above out first" >&2; exit 1; }
 
 mkdir -p "$OUT"
 # build/ is inside the project: without this Godot would import the copied decks and
@@ -58,5 +63,7 @@ if [ "$COPY_DECKS" = 1 ]; then
 		fi
 	done
 fi
+
+bash tools/check_private.sh "$OUT" || { echo "do NOT share $OUT: see above" >&2; exit 1; }
 
 echo "Built $OUT ($(du -sh "$OUT" | cut -f1))"

@@ -42,6 +42,8 @@ var images: DeckImages
 var motion: float = 1.0
 ## True from the last card turned until the reading's first words (set_studying).
 var studying: bool = false
+## True while the question is being weighed (set_weighing).
+var weighing: bool = false
 ## The slot shown enlarged over the table (show_lightbox), or -1.
 var lightbox_slot: int = -1
 
@@ -51,6 +53,7 @@ var _lightbox: Control
 var _lightbox_card: CardView
 var _lightbox_caption: Label
 var _study_tween: Tween
+var _weigh_tween: Tween
 var _pile: Array[CardView] = []
 var _fan: Array[CardView] = []
 var _slots: Array[CardView] = []
@@ -187,6 +190,7 @@ func set_spread(spread: Spread) -> void:
 
 func clear() -> void:
 	set_studying(false)
+	set_weighing(false)
 	hide_lightbox()
 	_summary = null
 	for view: CardView in _pile + _fan + _slots:
@@ -428,12 +432,33 @@ func set_studying(on: bool) -> void:
 func _start_study_loop() -> void:
 	if not studying:
 		return
-	_study_tween = create_tween().set_loops()
-	for view: CardView in _slots:
-		_study_tween.tween_property(view, "glow", 1.0, STUDY_TIME * motion) \
+	_study_tween = _glow_loop(_slots)
+
+
+## While the question is weighed (and the model loads): the glow passes over the cards or
+## empty positions on the table, or pulses on the deck when none are laid.
+func set_weighing(on: bool) -> void:
+	weighing = on
+	if _weigh_tween != null:
+		_weigh_tween.kill()
+		_weigh_tween = null
+	var views: Array[CardView] = _slots.duplicate()
+	if views.is_empty() and not _pile.is_empty():
+		views.append(pile_top())
+	for view: CardView in views:
+		view.glow = 0.0
+	if on and motion > 0.0 and not views.is_empty():
+		_weigh_tween = _glow_loop(views)
+
+
+func _glow_loop(views: Array[CardView]) -> Tween:
+	var tween: Tween = create_tween().set_loops()
+	for view: CardView in views:
+		tween.tween_property(view, "glow", 1.0, STUDY_TIME * motion) \
 				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		_study_tween.tween_property(view, "glow", 0.0, STUDY_TIME * motion) \
+		tween.tween_property(view, "glow", 0.0, STUDY_TIME * motion) \
 				.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	return tween
 
 
 ## Shows a turned card large over the table, upright, with its position and dignity

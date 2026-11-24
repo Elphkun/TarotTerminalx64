@@ -78,6 +78,9 @@ func _ready() -> void:
 	history_dialog.export_requested.connect(func(path: String) -> void:
 		if screen.open_record(path) == "":
 			screen.export_reading())
+	history_dialog.reread_requested.connect(func(path: String) -> void:
+		if screen.open_record(path) == "":
+			screen.reread())
 	licenses_dialog = LicensesDialog.new()
 	add_child(licenses_dialog)
 	settings_panel.licenses_requested.connect(licenses_dialog.open)

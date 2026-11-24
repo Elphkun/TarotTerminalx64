@@ -31,13 +31,16 @@ signal usage_reported(line: String)
 signal classified()
 ## The question asks about doing harm: no cards are dealt and no reading is written.
 signal refused(message: String)
+## The model gave no harm verdict: the reading goes ahead, and says so.
+signal unweighed(message: String)
 
 const REFUSAL: String = ("The reader won't lay out the cards for this question. The cards never "
 		+ "counsel harm to anyone, you included. If you are thinking of hurting yourself or someone "
 		+ "else, please talk to someone you trust, or to a local crisis line.")
 
 var db: CardDb
-## When the reader was set to work (_announce_reading), for the time the reading took.
+## When the reader was set to work (_announce_reading, or the verdict on a question weighed
+## again), for the time the reading took.
 var _reading_started_ms: int = 0
 var client: LlmClient
 var config: LlmConfig
@@ -72,6 +75,8 @@ var window: int = 0
 var chars_per_token: float = ReadingPipeline.CHARS_PER_TOKEN
 ## Set when the classify call failed; the reading then uses default classification.
 var classify_error: String = ""
+## Why the question could not be weighed ("" when it was).
+var weigh_problem: String = ""
 ## Why the reader refused the question ("" unless it asks about doing harm).
 var refusal: String = ""
 
@@ -137,8 +142,8 @@ func cut(at: int) -> void:
 	deck_changed.emit(deck)
 
 
-## The question is still being sorted: dealing and picking wait for it, so a question
-## about doing harm is refused before any card is dealt.
+## The question is still being sorted: dealing, picking and placing wait for it, so a
+## question about doing harm is refused before any card is laid.
 func is_weighing() -> bool:
 	return _classifying
 
@@ -181,9 +186,10 @@ func _deal_cards(cards: Array[int]) -> void:
 
 
 ## Own cards: puts `card` in `slot`, face up, or changes the card there. Placing the
-## last one starts the reading. Returns an error message, or "" when placed.
+## last one starts the reading. Not while the question is being sorted (is_weighing()).
+## Returns an error message, or "" when placed.
 func place(slot: int, card: int) -> String:
-	if step != Step.DEALT or not own_cards or slot < 0 or slot >= layout.size():
+	if step != Step.DEALT or not own_cards or _classifying or slot < 0 or slot >= layout.size():
 		return "not waiting for cards"
 	if not CardIndex.is_valid(card):
 		return "not a card"
@@ -224,6 +230,30 @@ func retry() -> void:
 	_read(_generation)
 
 
+## The finished (or failed) reading on the table can be read again (reread()).
+func can_reread() -> bool:
+	return step == Step.DONE and summary != null and refusal == ""
+
+
+## Reads the cards on the table again from the start, with the model now in the settings:
+## the question is weighed again, then read. Same question, spread and cards.
+func reread() -> void:
+	if not can_reread():
+		return
+	_generation += 1
+	classification = {}
+	classify_error = ""
+	weigh_problem = ""
+	reading_text = ""
+	reading_model = ""
+	finished_at = ""
+	critique_verdict = {}
+	_classifying = true
+	# Waits for `classified`. First, so a refusal that comes at once is not overwritten.
+	_begin_reading(_generation)
+	_classify(_generation)
+
+
 ## Back to ASK. Anything still running for this reading is ignored when it returns.
 func reset() -> void:
 	_generation += 1
@@ -243,6 +273,7 @@ func reset() -> void:
 	picked.clear()
 	draw = "app"
 	classify_error = ""
+	weigh_problem = ""
 	refusal = ""
 	_set_step(Step.ASK)
 
@@ -321,23 +352,32 @@ func _classify(generation: int) -> void:
 	if generation != _generation:
 		return
 	classify_error = client.last_error
+	weigh_problem = pipeline.weigh_problem
 	classification = result
 	_classifying = false
 	if result.get("harm") == true:
 		refusal = REFUSAL
+		if step == Step.DEALT:
+			# Own cards: the empty positions go. (Cards read again stay on the table.)
+			layout.clear()
+			turned.clear()
 		_set_step(Step.DONE)
 		refused.emit(refusal)
+	elif weigh_problem != "":
+		unweighed.emit("The reader could not weigh this question for harm: %s." % weigh_problem.trim_suffix("."))
 	classified.emit()
 
 
-## Starts at the last card turned, so the UI can show the reader at work even while
-## classify (begun at the shuffle) is still running.
+## Starts at the last card turned or placed, when the question has been weighed, or with
+## reread(), which weighs it again first.
 func _begin_reading(generation: int) -> void:
 	_announce_reading()
 	if _classifying:
 		await classified
 		if generation != _generation:
 			return
+		# Weighing may have loaded the model; the reading's own time starts here.
+		_reading_started_ms = Time.get_ticks_msec()
 	if refusal != "":
 		return
 	summary = ReadingSummary.build(db, spread, layout, question, classification)

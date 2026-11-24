@@ -142,10 +142,7 @@ func _draw() -> void:
 		_draw_placeholder_face(box)
 	else:
 		_draw_placeholder_back(box)
-	if glow > 0.0:
-		for ring: int in 3:
-			draw_rect(box.grow(2.0 + ring * 2.5), Color(ReaderTheme.BRASS.lightened(0.15),
-					glow * (0.85 - ring * 0.3)), false, 2.5)
+	_draw_glow(box)
 	var edge: Color = ReaderTheme.BRASS if highlighted or (_hovered and clickable) else EDGE
 	if glow > 0.0 and edge == EDGE:
 		edge = EDGE.lerp(ReaderTheme.BRASS.lightened(0.2), glow)
@@ -156,6 +153,14 @@ func _draw() -> void:
 		_draw_disc(Vector2(radius + 3.0, radius + 3.0), radius, badge, ReaderTheme.TEXT)
 	if mark_text != "" and face_up:
 		_draw_disc(size - Vector2(radius + 3.0, radius + 3.0), radius, mark_text, mark_color)
+
+
+func _draw_glow(box: Rect2) -> void:
+	if glow <= 0.0:
+		return
+	for ring: int in 3:
+		draw_rect(box.grow(2.0 + ring * 2.5), Color(ReaderTheme.BRASS.lightened(0.15),
+				glow * (0.85 - ring * 0.3)), false, 2.5)
 
 
 ## A small dark disc with a brass ring and `text`, kept upright when the card is turned.
@@ -172,6 +177,7 @@ func _draw_disc(centre: Vector2, radius: float, text: String, color: Color) -> v
 
 
 func _draw_empty(box: Rect2) -> void:
+	_draw_glow(box)
 	var lit: bool = highlighted or (_hovered and clickable)
 	draw_rect(box, Color(ReaderTheme.BRASS, 0.12 if lit else 0.06), true)
 	draw_rect(box, Color(ReaderTheme.BRASS, 0.9 if lit else 0.45), false, 1.5)

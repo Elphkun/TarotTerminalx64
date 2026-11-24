@@ -220,18 +220,141 @@ func test_dealing_waits_for_the_question_to_be_weighed() -> void:
 	_free_client()
 
 
-func test_own_cards_laid_before_a_harm_verdict_get_no_reading() -> void:
+func test_own_cards_wait_for_the_harm_verdict() -> void:
+	var session: ReadingSession = _session()
+	_client.hold_classify = true
+	session.start("Should I move?", "three_card", -1, true)
+	assert_eq(session.place(0, 5), "not waiting for cards", "no card is placed while weighing")
+	assert_eq(session.layout[0]["card"], -1)
+	_client.release_classify()
+	assert_eq(session.place(0, 5), "", "then cards are placed as usual")
+	_free_client()
+
+
+func test_own_cards_are_refused_before_any_is_placed() -> void:
 	var session: ReadingSession = _session()
 	_client.hold_classify = true
 	_client.classify_reply = HARM_REPLY
 	session.start("Should I hurt him?", "three_card", -1, true)
 	for slot: int in 3:
 		session.place(slot, slot)
-	assert_eq(session.summary, null, "the reading waits for the verdict")
 	_client.release_classify()
 	assert_eq(session.refusal, ReadingSession.REFUSAL)
-	assert_eq(session.summary, null)
+	assert_eq(session.step, ReadingSession.Step.DONE)
+	assert_true(session.layout.is_empty(), "the empty positions go")
+	assert_false(session.can_reread(), "a refused question can't be read again")
 	assert_eq(_client.count("Golden Dawn tradition, reading"), 0, "no reading is asked for")
+	_free_client()
+
+
+func _unweighed(session: ReadingSession) -> Array[String]:
+	var notes: Array[String] = []
+	session.unweighed.connect(func(message: String) -> void: notes.append(message))
+	return notes
+
+
+func test_an_unreadable_verdict_is_asked_for_again_as_json() -> void:
+	var session: ReadingSession = _session()
+	var notes: Array[String] = _unweighed(session)
+	_client.classify_replies = ["No, I do not recommend it."]
+	_client.classify_reply = HARM_REPLY
+	session.start("Should I kill my best friend?", "three_card", 1)
+	assert_eq(_client.count("sort tarot questions"), 2)
+	assert_false(_client.options_seen[0].has("response_format"))
+	assert_true(_client.options_seen[1].has("response_format"), "the second try asks for JSON")
+	assert_eq(session.refusal, ReadingSession.REFUSAL, "and its verdict counts")
+	assert_true(notes.is_empty())
+	_free_client()
+
+
+func test_no_verdict_after_two_tries_goes_ahead_and_says_so() -> void:
+	var session: ReadingSession = _session()
+	var notes: Array[String] = _unweighed(session)
+	_client.classify_reply = "{\"life_area\": \"career\", \"harm\": \"perhaps\"}"
+	session.start("Should I move?", "three_card", 1)
+	assert_eq(_client.count("sort tarot questions"), 2)
+	assert_eq(notes.size(), 1)
+	assert_true(notes.size() == 1 and notes[0].contains("could not weigh"))
+	assert_eq(session.classification["life_area"], "career", "what it did say is kept")
+	session.deal()
+	assert_eq(session.step, ReadingSession.Step.DEALT, "the reading goes ahead")
+	_free_client()
+
+
+func test_a_failed_weighing_is_not_tried_twice_and_says_so() -> void:
+	var session: ReadingSession = _session()
+	var notes: Array[String] = _unweighed(session)
+	_client.fail_next = "Could not connect"
+	session.start("Should I move?", "three_card", 1)
+	assert_eq(_client.calls.size(), 1)
+	assert_true(notes.size() == 1 and notes[0].contains("Could not connect"))
+	_free_client()
+
+
+func _finished(question: String = "Should I move?") -> ReadingSession:
+	var session: ReadingSession = _session()
+	session.start(question, "three_card", 1)
+	session.deal()
+	session.turn_all()
+	return session
+
+
+func test_reread_keeps_the_cards_and_uses_the_model_now_chosen() -> void:
+	var session: ReadingSession = _finished()
+	assert_eq(session.step, ReadingSession.Step.DONE)
+	var cards: Array = session.layout.map(func(entry: Dictionary) -> int: return entry["card"])
+	_client.model_name = "another-model"
+	_client.classify_reply = "{\"life_area\": \"home\", \"question_type\": \"open\", \"harm\": false}"
+	assert_true(session.can_reread())
+	session.reread()
+	assert_eq(session.step, ReadingSession.Step.DONE)
+	assert_eq(session.layout.map(func(entry: Dictionary) -> int: return entry["card"]), cards)
+	assert_eq(session.reading_model, "another-model")
+	assert_eq(session.summary.classification["life_area"], "home", "the question is sorted again")
+	assert_eq(_client.count("sort tarot questions"), 2)
+	assert_eq(_client.count("Golden Dawn tradition, reading"), 2)
+	_free_client()
+
+
+func test_reread_waits_for_the_verdict() -> void:
+	var session: ReadingSession = _finished()
+	_client.hold_classify = true
+	session.reread()
+	assert_eq(session.step, ReadingSession.Step.READING)
+	assert_true(session.is_weighing())
+	assert_false(session.can_reread(), "not while one is under way")
+	assert_eq(_client.count("Golden Dawn tradition, reading"), 1, "no reading before the verdict")
+	_client.release_classify()
+	assert_eq(session.step, ReadingSession.Step.DONE)
+	assert_eq(_client.count("Golden Dawn tradition, reading"), 2)
+	_free_client()
+
+
+func test_reread_can_be_refused() -> void:
+	# At once, and after a wait: either way it ends refused, with the cards left lying.
+	for hold: bool in [false, true]:
+		var session: ReadingSession = _finished()
+		_client.classify_reply = HARM_REPLY
+		_client.hold_classify = hold
+		session.reread()
+		_client.release_classify()
+		assert_eq(session.step, ReadingSession.Step.DONE, "hold %s" % hold)
+		assert_eq(session.refusal, ReadingSession.REFUSAL)
+		assert_eq(session.layout.size(), 3)
+		assert_eq(session.reading_text, "")
+		assert_false(session.can_reread())
+		assert_eq(_client.count("Golden Dawn tradition, reading"), 1, "only the first reading")
+		_free_client()
+
+
+func test_new_reading_during_a_reread_drops_it() -> void:
+	var session: ReadingSession = _finished()
+	_client.hold_classify = true
+	session.reread()
+	session.reset()
+	_client.release_classify()
+	assert_eq(session.step, ReadingSession.Step.ASK)
+	assert_eq(_client.count("Golden Dawn tradition, reading"), 1)
 	_free_client()
 
 

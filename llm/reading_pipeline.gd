@@ -12,6 +12,8 @@ const QUESTION_TYPES: PackedStringArray = ["yes_no", "open"]
 const CHARS_PER_TOKEN: float = 3.5
 
 var client: LlmClient
+## Why the last classify() got no harm verdict ("" when it got one, yes or no).
+var weigh_problem: String = ""
 
 
 func _init(llm_client: LlmClient) -> void:
@@ -20,6 +22,8 @@ func _init(llm_client: LlmClient) -> void:
 
 ## LLM call 1. Always returns all three keys; falls back to defaults for anything
 ## the model left out or got wrong. Check client.last_error to see if the call failed.
+## A reply with no harm verdict (some models answer the question instead) is asked for
+## once more as JSON; weigh_problem says so when there is still none.
 func classify(question: String) -> Dictionary:
 	var messages: Array = [
 		{"role": "system", "content": PromptTemplate.load_and_render("classify_system")},
@@ -29,18 +33,25 @@ func classify(question: String) -> Dictionary:
 	# LlmClient.complete() is a coroutine in every real backend, though not in the base.
 	@warning_ignore("redundant_await")
 	var answer: String = await client.complete(messages, false, {"temperature": 0.0})
+	var problem: String = client.last_error
+	if problem == "" and harm_verdict(answer) == null:
+		@warning_ignore("redundant_await")
+		var again: String = await client.complete(messages, false,
+				{"temperature": 0.0, "response_format": {"type": "json_object"}})
+		if client.last_error == "" and harm_verdict(again) != null:
+			answer = again
+		else:
+			problem = client.last_error if client.last_error != "" else "its answer was unreadable"
+	# Set last, so it belongs to the call that returns here.
+	weigh_problem = problem
 	return parse_classification(answer)
 
 
 ## Takes the first {...} block in `answer`, tolerating prose or code fences around it.
 static func parse_classification(answer: String) -> Dictionary:
 	var result: Dictionary = DEFAULT_CLASSIFICATION.duplicate()
-	var start: int = answer.find("{")
-	var end: int = answer.rfind("}")
-	if start < 0 or end <= start:
-		return result
-	var data: Variant = JSON.parse_string(answer.substr(start, end - start + 1))
-	if not data is Dictionary:
+	var data: Dictionary = _reply_object(answer)
+	if data.is_empty():
 		return result
 	for key: String in DEFAULT_CLASSIFICATION:
 		var value: Variant = data.get(key)
@@ -50,10 +61,33 @@ static func parse_classification(answer: String) -> Dictionary:
 		result["question_type"] = DEFAULT_CLASSIFICATION["question_type"]
 	# The question asks about doing harm: the cards are not dealt (ReadingSession). Only
 	# a clear true counts; a model that can't say leaves the reading to go ahead.
-	var harm: Variant = data.get("harm")
-	if (harm is bool and harm) or (harm is String and harm.strip_edges().to_lower() == "true"):
+	if _as_verdict(data.get("harm")) == true:
 		result["harm"] = true
 	return result
+
+
+## Whether the question asks about doing harm, as `answer` says: true, false, or null
+## when it does not say.
+static func harm_verdict(answer: String) -> Variant:
+	return _as_verdict(_reply_object(answer).get("harm"))
+
+
+static func _as_verdict(harm: Variant) -> Variant:
+	if harm is bool:
+		return harm
+	if harm is String:
+		return {"true": true, "false": false}.get(harm.strip_edges().to_lower())
+	return null
+
+
+## The first {...} block in `answer` as a Dictionary, or {} when there is none.
+static func _reply_object(answer: String) -> Dictionary:
+	var start: int = answer.find("{")
+	var end: int = answer.rfind("}")
+	if start < 0 or end <= start:
+		return {}
+	var data: Variant = OllamaApi.parse(answer.substr(start, end - start + 1))
+	return data if data is Dictionary else {}
 
 
 ## An estimate of how many tokens `text` costs; good to about 10-20%.

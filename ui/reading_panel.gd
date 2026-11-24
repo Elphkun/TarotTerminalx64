@@ -5,15 +5,20 @@ extends PanelContainer
 
 signal retry_pressed()
 
+## After this long, the weighing line says why it may be slow.
+const SLOW_WEIGHING_S: int = 3
+
 var text_view: RichTextLabel
 var status: Label
 var retry_button: Button
 ## Under the text: a warning that the prompt may not fit, then the tokens used.
 var meter: Label
+## Under the text: the question could not be weighed. Stays until the next question.
+var note: Label
 
 var _markdown: String = ""
-## While waiting for the first visible words: "waiting", or "thinking" once the
-## model streams hidden reasoning. "" otherwise.
+## "weighing" while the question is sorted. While waiting for the first visible words:
+## "waiting", or "thinking" once the model streams hidden reasoning. "" otherwise.
 var _phase: String = ""
 var _thinking_chars: int = 0
 var _started_ms: int = 0
@@ -53,6 +58,11 @@ func _init() -> void:
 	text_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	box.add_child(text_view)
 
+	note = Label.new()
+	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	note.add_theme_color_override("font_color", ReaderTheme.BRASS)
+	box.add_child(note)
+
 	meter = Label.new()
 	meter.theme_type_variation = ReaderTheme.MUTED_LABEL
 	meter.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -66,7 +76,14 @@ func clear() -> void:
 	text_view.text = ""
 	retry_button.visible = false
 	set_meter("")
+	set_note("")
 	set_status("Ask a question, then shuffle.")
+
+
+## The note under the reading; "" hides it.
+func set_note(text: String) -> void:
+	note.text = text
+	note.visible = text != ""
 
 
 ## The line under the reading; "" hides it.
@@ -83,11 +100,28 @@ func set_status(text: String, color: Color = ReaderTheme.MUTED) -> void:
 
 
 func begin() -> void:
+	_start_waiting("waiting")
+
+
+## The question is being weighed, which also loads the model: the same line and timer.
+func begin_weighing() -> void:
+	set_note("")
+	_start_waiting("weighing")
+
+
+## The question has been weighed and no reading follows yet.
+func end_weighing() -> void:
+	if _phase == "weighing":
+		_stop_waiting()
+		text_view.text = ""
+
+
+func _start_waiting(phase_name: String) -> void:
 	_markdown = ""
 	text_view.text = ""
 	retry_button.visible = false
 	set_meter("")
-	_phase = "waiting"
+	_phase = phase_name
 	_thinking_chars = 0
 	_started_ms = Time.get_ticks_msec()
 	set_status("")
@@ -98,7 +132,7 @@ func begin() -> void:
 
 ## Hidden reasoning from a thinking model: counted, not shown.
 func add_thinking(piece: String) -> void:
-	if _phase == "":
+	if _phase == "" or _phase == "weighing":
 		return
 	var started_thinking: bool = _phase == "waiting"
 	_phase = "thinking"
@@ -125,7 +159,7 @@ func finish() -> void:
 	set_status("")
 
 
-## The current waiting phase, for tests: "waiting", "thinking" or "".
+## The current waiting phase, for tests: "weighing", "waiting", "thinking" or "".
 func phase() -> String:
 	return _phase
 
@@ -134,7 +168,13 @@ func phase() -> String:
 func _update_wait_status() -> void:
 	var seconds: int = floori((Time.get_ticks_msec() - _started_ms) / 1000.0)
 	var line: String = ""
+	var color: Color = ReaderTheme.MUTED
 	match _phase:
+		"weighing":
+			line = "The reader is weighing your question… %d s" % seconds
+			color = ReaderTheme.BRASS
+			if seconds >= SLOW_WEIGHING_S:
+				line += "\nA model that isn't loaded yet takes a while to warm up."
 		"waiting":
 			line = "The reader is studying the spread… %d s" % seconds
 		"thinking":
@@ -142,7 +182,7 @@ func _update_wait_status() -> void:
 				seconds, _thinking_chars]
 		_:
 			return
-	text_view.text = "[color=#%s][i]%s[/i][/color]" % [ReaderTheme.MUTED.to_html(false), line]
+	text_view.text = "[color=#%s][i]%s[/i][/color]" % [color.to_html(false), line]
 
 
 ## What the reader is doing before the first words ("" once writing), for tests.

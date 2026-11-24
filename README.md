@@ -60,8 +60,10 @@ Ollama on another computer works too: put its address in **Server**, for example
 1. **Type your question** in the box at the top and choose a spread from the menu beside
    it. Yes/no questions get a clear leaning (yes, no or not yet); open questions get a
    fuller reading.
-2. **Press Shuffle.** While the deck shuffles, the reader weighs your question (this is
-   when Deal waits, for a second or two). Then:
+2. **Press Shuffle.** The reader first weighs your question: the deck glows and a timer
+   runs, and Deal waits. This takes a second or two, or longer when the model has to load
+   first. A question about doing harm is refused and no card is dealt. If the model can't
+   say, the reading goes ahead and a note under it says so. Then:
    - **Cut** fans the deck; click a card in the fan to cut there.
    - **Deal** lays the top cards face down in the positions.
    - Or **click the deck** to fan it face down and pick your cards yourself, one per
@@ -76,11 +78,14 @@ Ollama on another computer works too: put its address in **Server**, for example
    - **Correspondences and dignities**, under the reading, lists the facts the reader
      was given.
    - **Click a card** to see it large with its correspondences.
-5. **New reading** clears the table for the next question.
+5. **Re-read** reads the same cards again. Change the model in Settings first to compare
+   models: the question is weighed again, and each reading is kept in the history. The
+   seconds shown leave out the weighing, so loading the model doesn't count.
+6. **New reading** clears the table for the next question.
 
 **Using your own deck:** set **Cards** (beside the spread menu) to **My own cards**.
-Shuffle and lay out your physical deck, press **Lay out**, then click each position
-and say which card is there. You can type a name ("seven wands"), a short code ("7w",
+Shuffle and lay out your physical deck and press **Lay out**. Once the reader has weighed
+your question, click each position and say which card is there. You can type a name ("seven wands"), a short code ("7w",
 "kp" for the King of Pentacles, "aw" for the Ace of Wands) or a trump's number ("16").
 The reading starts when the last card is in.
 
@@ -228,8 +233,10 @@ The reader writes in the style of up to three example readings you choose.
 ## History and export
 
 - **History:** every finished reading is saved. **History…** (top right) lists them,
-  newest first.
+  newest first, each with its model.
   - **Open** lays a reading out on the table again, face up.
+  - **Re-read** opens it and reads its cards again with the model now in Settings, as a
+    new reading.
   - **Export** saves it as a Markdown file.
   - **Delete** removes it (press twice).
   - Settings → History turns saving off.

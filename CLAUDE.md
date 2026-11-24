@@ -153,9 +153,10 @@ Checks: 7 of Wands = 28, Page of Wands = 32, Ace of Cups = 36, Ace of Swords = 5
 
 1. **Question.** The user enters a question and picks a spread.
 2. **Classify (LLM call 1, short, JSON output):** life area, timeframe, yes/no vs open-ended, and `harm`.
-   - It starts at the shuffle (or Lay out). Deal and picking wait for it (`ReadingSession.is_weighing()`; the status reads "The reader is weighing your question…").
-   - `harm: true` means the question asks whether, when or how to kill, injure, abuse or torment someone, the querent included. The session then refuses (`refused`, `ReadingSession.REFUSAL`, step DONE): no card is dealt and no reading is asked for.
-   - Only a clear true counts. If the model fails or can't say, the reading goes ahead, and `prompts/read_system.txt`'s "Never counsel harm" rule is the backstop.
+   - It starts at the shuffle (or Lay out, or Re-read). Dealing, picking and placing own cards wait for it (`ReadingSession.is_weighing()`). It is also when a model loads, so it shows: the panel's "weighing" phase with its timer, and `TableView.set_weighing()`'s glow on the deck, the empty positions or the cards.
+   - `harm: true` means the question asks whether, when or how to kill, injure, abuse or torment someone, the querent included. The session then refuses (`refused`, `ReadingSession.REFUSAL`, step DONE): no card is dealt and no reading is asked for. Empty own-card positions are cleared; cards being read again stay.
+   - A reply with no verdict (some models answer the question instead) is asked for once more as JSON (`ReadingPipeline.harm_verdict`). A failed call is not.
+   - Only a clear true counts. If the model fails or still can't say (`ReadingPipeline.weigh_problem`), the reading goes ahead with a note under it (`unweighed`), and `prompts/read_system.txt`'s "Never counsel harm" rule is the backstop.
 3. **Draw.** Shuffle, optionally cut (a cut leaves the deck shuffled), then either Deal (the top cards) or click the deck to fan it and pick the N cards face down (`ReadingSession.pick(at)`, in pick order; `TableView.take_from_fan`). `ReadingSession.draw` records "app", "picked" or "own" for the history and the export.
 4. **Compute (code):**
    - Per card: full data entry + position meaning.
@@ -204,6 +205,7 @@ Godot 4.7 (`C:\Users\elphk\Godot\Godot_v4.7.2-stable_win64_console.exe`). `--scr
   - It exports the "Windows Desktop" preset (`export_presets.cfg`) to `build/windows/TarotTerminal.exe`, with the pck embedded.
   - The preset adds `prompts/*.txt` (examples included: two of the author's ship as the starting set) and leaves out `tests/`, `tools/`, `docs/` and `build/`.
   - The script copies the `distributable: true` decks to `build/windows/decks/` and writes `build/windows/spreads/README.md`.
+  - `tools/check_private.sh` stops the build if the project or the built folder holds the builder's server address or API key (read from their `llm.json`), or a Tailscale address. The project is searched before the export, because packed scripts are compressed.
   - `build/` holds a `.gdignore` (the script recreates it). Without it, Godot imports the copied decks and packs them into the next exe.
   - The exe should be about 110 MB. Check the export log's "Storing File" lines for anything from `decks/`, `local/` or `build/`.
 
@@ -216,12 +218,13 @@ The window: stretch mode `disabled`, so a bigger window gives the layout more ro
 Own cards ("Cards: My own cards" beside the spread menu, `AppSettings.draw_mode`):
 - **The flow:** the querent shuffles and lays out a physical deck. "Lay out" (`ReadingSession.start(..., own = true)`) skips the shuffle and shows each position as an empty outline (`CardView.empty`, layout card -1). Clicking a position, or pressing Space, opens `ui/card_picker_dialog.gd`.
 - **The picker:** filter by name ("seven wands"), a code (rank + suit letter w/c/s/p, a/1 for the Ace, p/n/q/k for the courts: "7w", "kp") or a trump's number ("16").
-- **Placing:** `ReadingSession.place(slot, card)` refuses a card already laid and can change a card until the last one is in. The last card starts the reading.
+- **Placing:** `ReadingSession.place(slot, card)` refuses anything while the question is weighed, and a card already laid, and can change a card until the last one is in. The last card starts the reading.
 - **Records:** the export says "Cards: your own, laid out by hand" and names no app deck; history records have `"draw": "own"`.
 
 Reading history (`core/reading_history.gd`, `ui/history_dialog.gd`, "History…" beside Settings):
-- **Saving:** every finished reading is saved as one JSON file in `user://history/`, named by date and question. `ReadingScreen.save_to_history()` runs on `reading_finished` and `critique_finished`. A retry or critique rewrites the same file (`history_path`). Settings → History ("Keep every finished reading", `AppSettings.keep_history`) turns it off.
-- **What a record holds:** the question, classification, the spread's whole definition (so readings from deleted added spreads reopen), the cards per position, deck, model, reading and critique. Dignities and patterns are not stored. `ReadingSession.restore()` works them out again from the cards, like any reading, and `ReadingScreen.open_record()` lays the reading out face up.
+- **Saving:** every finished reading is saved as one JSON file in `user://history/`, named by date and question. `ReadingScreen.save_to_history()` runs on `reading_finished` and `critique_finished`. A retry or critique rewrites the same file (`history_path`); a Re-read gets its own. Settings → History ("Keep every finished reading", `AppSettings.keep_history`) turns it off.
+- **Re-read** (bottom row, and in History): `ReadingSession.reread()` weighs the question again and reads the cards on the table with the model now in Settings. It calls `_begin_reading()` before `_classify()`, so a refusal that comes at once isn't overwritten. The seconds reported count from the verdict.
+- **What a record holds:** the question, classification, the whole definition of the spread on the table (so readings from deleted added spreads reopen), the cards per position, deck, model, reading and critique. Dignities and patterns are not stored. `ReadingSession.restore()` works them out again from the cards, like any reading, and `ReadingScreen.open_record()` lays the reading out face up.
 - **Tests:** they point the folder elsewhere (`App.history_folder`; the smoke test uses `user://test_smoke_history`).
 
 Keys (`ReadingScreen._unhandled_key_input`, only while focus is on the reading screen and no card is shown large): Space or Enter takes the next step (`next_step()`: shuffle, deal, turn the next card) and Ctrl+Enter turns all. Shuffle, Cut, Deal and Turn all take no keyboard focus, so a focused button never swallows those keys. The smoke test runs reading 4 from the keyboard.

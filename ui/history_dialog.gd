@@ -7,6 +7,8 @@ extends Control
 signal open_requested(path: String)
 ## Open the reading in `path`, then export it.
 signal export_requested(path: String)
+## Open the reading in `path`, then read its cards again.
+signal reread_requested(path: String)
 
 ## Where the readings are kept; tests point this somewhere harmless.
 var history_folder: String = ReadingHistory.DEFAULT_FOLDER
@@ -16,6 +18,7 @@ var preview: Label
 var note: Label
 var open_button: Button
 var export_button: Button
+var reread_button: Button
 var delete_button: Button
 var close_button: Button
 
@@ -46,7 +49,7 @@ func refresh() -> void:
 	_entries = ReadingHistory.list(history_folder)
 	list.clear()
 	for entry: Dictionary in _entries:
-		list.add_item("%s  ·  %s  ·  %s" % [_short_date(entry["date"]), entry["spread_name"], entry["question"]])
+		list.add_item("%s  ·  %s  ·  %s" % [_short_date(entry["date"]), _source(entry), entry["question"]])
 	note.text = ("%d saved reading%s, in %s." % [_entries.size(), "" if _entries.size() == 1 else "s",
 			ProjectSettings.globalize_path(history_folder)]) if not _entries.is_empty() \
 			else "No saved readings yet. Every finished reading is kept here (Settings → History)."
@@ -68,6 +71,12 @@ func export_selected() -> void:
 	if _selected >= 0:
 		close()
 		export_requested.emit(_entries[_selected]["path"])
+
+
+func reread_selected() -> void:
+	if _selected >= 0:
+		close()
+		reread_requested.emit(_entries[_selected]["path"])
 
 
 ## First press asks, second press deletes.
@@ -97,10 +106,15 @@ func _select(index: int) -> void:
 		list.select(index)
 		list.ensure_current_is_visible()
 		var entry: Dictionary = _entries[index]
-		preview.text = "%s\n%s · %s\n\n%s" % [entry["question"], entry["spread_name"],
+		preview.text = "%s\n%s · %s\n\n%s" % [entry["question"], _source(entry),
 				entry["date"], entry["preview"]]
-	for button: Button in [open_button, export_button, delete_button]:
+	for button: Button in [open_button, export_button, reread_button, delete_button]:
 		button.disabled = _selected < 0
+
+
+## The spread and the model: what tells apart readings of the same question.
+static func _source(entry: Dictionary) -> String:
+	return entry["spread_name"] if entry["model"] == "" else "%s · %s" % [entry["spread_name"], entry["model"]]
 
 
 ## "2026-11-20 16:07:50" -> "2026-11-20 16:07".
@@ -177,6 +191,11 @@ func _build() -> void:
 	export_button.tooltip_text = "Open the reading and save it as a Markdown file"
 	export_button.pressed.connect(export_selected)
 	buttons.add_child(export_button)
+	reread_button = Button.new()
+	reread_button.text = "Re-read"
+	reread_button.tooltip_text = "Open the reading and read its cards again with the model now chosen in Settings"
+	reread_button.pressed.connect(reread_selected)
+	buttons.add_child(reread_button)
 	open_button = Button.new()
 	open_button.text = "Open"
 	open_button.tooltip_text = "Lay the reading out on the table again (double-click works too)"

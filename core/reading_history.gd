@@ -57,7 +57,7 @@ static func save(record: Dictionary, folder: String = DEFAULT_FOLDER, path: Stri
 	return path
 
 
-## Every saved reading, newest first: {path, date, spread_name, question, preview}.
+## Every saved reading, newest first: {path, date, spread_name, question, model, preview}.
 static func list(folder: String = DEFAULT_FOLDER) -> Array[Dictionary]:
 	var found: Array[Dictionary] = []
 	var absolute: String = ProjectSettings.globalize_path(folder)
@@ -77,6 +77,7 @@ static func list(folder: String = DEFAULT_FOLDER) -> Array[Dictionary]:
 			"date": str(record.get("date", "")),
 			"spread_name": str(spread_data.get("name", spread.get("id", ""))),
 			"question": str(record.get("question", "")),
+			"model": str(record.get("model", "")),
 			"preview": _preview(str(record.get("reading", ""))),
 		})
 	found.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:

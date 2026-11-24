@@ -6,6 +6,7 @@ extends Control
 ## Card images load at least this tall, and at most CARD_IMAGE_MAX (see card_image_height).
 const CARD_IMAGE_HEIGHT: int = 720
 const CARD_IMAGE_MAX: int = 1440
+const WEIGHING: String = "The reader is weighing your question…"
 
 signal settings_requested()
 ## "Save as example…": a draft of the finished reading for the Example readings dialog.
@@ -35,6 +36,7 @@ var cut_button: Button
 var deal_button: Button
 var turn_all_button: Button
 var new_button: Button
+var reread_button: Button
 var settings_button: Button
 var history_button: Button
 var example_button: Button
@@ -162,6 +164,8 @@ func _build() -> void:
 	for step_button: Button in [shuffle_button, cut_button, deal_button, turn_all_button]:
 		step_button.focus_mode = Control.FOCUS_NONE
 	new_button = _button(bottom, "New reading", _on_new_reading)
+	reread_button = _button(bottom, "Re-read", reread)
+	reread_button.tooltip_text = "Read these cards again, with the model now chosen in Settings"
 	example_button = _button(bottom, "Save as example…", _on_save_example)
 	example_button.tooltip_text = "Edit this reading into an example the model learns your style from"
 	export_button = _button(bottom, "Export reading…", _on_export)
@@ -196,15 +200,17 @@ func _button(parent: Control, text: String, action: Callable) -> Button:
 func _connect_session() -> void:
 	session.step_changed.connect(func(_s: ReadingSession.Step) -> void: _update_buttons())
 	session.deck_changed.connect(func(_d: Array[int]) -> void: _update_buttons())
-	session.classified.connect(_update_buttons)
-	session.refused.connect(func(message: String) -> void:
-		table.set_studying(false)
-		reading_panel.show_refusal(message))
+	session.classified.connect(_on_classified)
+	session.refused.connect(_on_refused)
+	session.unweighed.connect(func(message: String) -> void: reading_panel.set_note(message))
 	session.dealt.connect(_on_dealt)
 	session.card_turned.connect(_on_card_turned)
 	session.card_placed.connect(func(slot: int, card: int) -> void: table.set_slot_card(slot, card))
 	session.summary_ready.connect(_on_summary_ready)
 	session.reading_started.connect(func() -> void:
+		if session.is_weighing():
+			_show_weighing()  # a Re-read weighs the question again first
+			return
 		reading_panel.begin()
 		table.set_studying(true))
 	session.token.connect(func(piece: String) -> void:
@@ -243,6 +249,7 @@ func _update_buttons() -> void:
 	shuffle_button.tooltip_text = ("Show the positions, then choose the card you laid in each (Enter)"
 			if own else "Shuffle the deck for the question (Enter)")
 	new_button.disabled = asking
+	reread_button.disabled = not session.can_reread()
 	example_button.disabled = step != ReadingSession.Step.DONE or session.reading_text == ""
 	export_button.disabled = example_button.disabled
 	match step:
@@ -256,15 +263,19 @@ func _update_buttons() -> void:
 			elif table.is_fanned():
 				status.text = "Pick a card in the fan to cut there, or deal."
 			elif weighing:
-				status.text = "The reader is weighing your question…"
+				status.text = WEIGHING
 			else:
 				status.text = "Shuffled. Cut, deal, or click the deck to pick your %d card%s." % [
 						wanted, "" if wanted == 1 else "s"]
 		ReadingSession.Step.DEALT:
-			status.text = "Click each position and choose the card you laid there." if session.own_cards \
-					else "Turn the cards over, one at a time or all at once."
+			if weighing:
+				status.text = WEIGHING
+			elif session.own_cards:
+				status.text = "Click each position and choose the card you laid there."
+			else:
+				status.text = "Turn the cards over, one at a time or all at once."
 		ReadingSession.Step.READING:
-			status.text = ""
+			status.text = WEIGHING if weighing else ""
 		ReadingSession.Step.DONE:
 			status.text = "Ask another question with New reading." if session.refusal != "" \
 					else "Click a card to see its correspondences."
@@ -282,11 +293,61 @@ func _on_shuffle() -> void:
 	var deck: DeckInfo = deck_picker.selected_deck()
 	# Own cards come from the querent's deck, not the one on screen.
 	session.reading_deck = deck.name if deck != null and not own else ""
+	if session.refusal != "":
+		return  # already refused: only a client that answers at once
+	if session.is_weighing():
+		_show_weighing()
 	if own:
-		reading_panel.set_status("Lay out your cards, then click each position to say which card is there.")
+		_prompt_own_cards()
 		return
 	table.riffle()
 	reading_panel.set_status("Shuffled.")
+
+
+## The question is being weighed, which also loads the model: the glow and the panel's
+## timer show that the reader is at work.
+func _show_weighing() -> void:
+	reading_panel.begin_weighing()
+	table.set_weighing(true)
+
+
+## Own cards: what to do now, once the question has been weighed.
+func _prompt_own_cards() -> void:
+	reading_panel.set_status("" if session.is_weighing() else
+			"Lay out your cards, then click each position to say which card is there.")
+
+
+func _on_classified() -> void:
+	table.set_weighing(false)
+	if session.step == ReadingSession.Step.READING:
+		# A Re-read: the question was weighed again, and now the cards are read.
+		reading_panel.begin()
+		table.set_studying(true)
+	else:
+		reading_panel.end_weighing()
+		if session.step == ReadingSession.Step.DEALT and session.own_cards:
+			_prompt_own_cards()
+	_update_buttons()
+
+
+func _on_refused(message: String) -> void:
+	picking = false
+	table.set_studying(false)
+	table.set_weighing(false)
+	if session.layout.is_empty():
+		# Own cards: the empty positions go. Cards read again stay.
+		table.set_spread(session.spread)
+	reading_panel.show_refusal(message)
+
+
+## Reads the cards on the table again, with the model now in Settings. The earlier
+## reading stays in the history: this one is saved as its own.
+func reread() -> void:
+	if not session.can_reread():
+		return
+	history_path = ""
+	correspondences.set_expanded(false)
+	session.reread()
 
 
 func _on_cut() -> void:
@@ -338,7 +399,8 @@ func _on_card_turned(slot: int) -> void:
 
 func _on_slot_pressed(slot: int) -> void:
 	if session.step == ReadingSession.Step.DEALT and session.own_cards:
-		ask_card(slot)
+		if not session.is_weighing():
+			ask_card(slot)
 	elif session.step == ReadingSession.Step.DEALT and not session.turned[slot]:
 		session.turn(slot)
 	elif session.summary != null:
@@ -401,10 +463,7 @@ func export_markdown() -> String:
 func save_to_history() -> void:
 	if not settings.keep_history or session.summary == null or session.reading_text == "":
 		return
-	var definition: Dictionary = db.spread(session.spread.id)
-	if definition.is_empty():
-		definition = _spread_definition(session.spread)
-	var record: Dictionary = ReadingHistory.record_from(session, definition)
+	var record: Dictionary = ReadingHistory.record_from(session, _spread_definition(session.spread))
 	var written: String = ReadingHistory.save(record, history_folder, history_path)
 	if written == "":
 		reading_panel.set_status("Could not save the reading to the history.", ReaderTheme.ILL)
@@ -412,8 +471,8 @@ func save_to_history() -> void:
 	history_path = written
 
 
-## A spread's definition rebuilt from the Spread itself (for a reopened reading whose
-## spread is no longer in the menu).
+## A spread's definition rebuilt from the Spread on the table: a reopened reading keeps its
+## own, even when the spread has changed or gone from the menu since.
 static func _spread_definition(spread: Spread) -> Dictionary:
 	var pairs: Array = []
 	for pair: PackedStringArray in spread.adjacency:
@@ -584,7 +643,8 @@ func next_step() -> bool:
 		ReadingSession.Step.DEALT:
 			var slot: int = session.turned.find(false)
 			if slot >= 0 and session.own_cards:
-				ask_card(slot)
+				if not session.is_weighing():
+					ask_card(slot)
 				return true
 			if slot >= 0:
 				session.turn(slot)
