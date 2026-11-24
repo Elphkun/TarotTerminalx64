@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.1 (not released yet)
+## 0.2.1 (2026-11-24)
 
 ### Fixed
 - The question is always weighed without thinking, whatever the setting. A thinking model
