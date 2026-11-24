@@ -21,6 +21,7 @@ Nothing leaves your computer unless you point the app at an online model yoursel
 - [Example readings](#example-readings)
 - [History and export](#history-and-export)
 - [Settings](#settings)
+- [Suggested settings](#suggested-settings)
 - [Speed and hardware](#speed-and-hardware)
 - [Where things are kept](#where-things-are-kept)
 - [Running from source](#running-from-source)
@@ -32,8 +33,9 @@ Nothing leaves your computer unless you point the app at an online model yoursel
 - **A local model server.** [Ollama](https://ollama.com) is the easiest; LM Studio,
   llama.cpp's server and any other server with an OpenAI-compatible API work too.
 - **A graphics card with about 12 GB of memory or more** for a good reading model.
-  Smaller cards work with smaller models, more slowly or less well.
-  - Tested with `gemma4:26b-a4b-it-qat` in Ollama.
+  Smaller cards work with smaller models, less well. [Suggested settings](#suggested-settings)
+  has a model for each size of card.
+  - Written and tested with `gemma4:26b-a4b-it-qat` in Ollama.
   - On a 12 GB card (an RTX 4070 SUPER), a 3-card reading took about 50 seconds and a
     10-card spread about 90.
 
@@ -44,6 +46,8 @@ Nothing leaves your computer unless you point the app at an online model yoursel
    ```
    ollama pull gemma4:26b-a4b-it-qat
    ```
+
+   Pick the one for your card from [Suggested settings](#suggested-settings).
 
 2. **Unzip TarotTerminal** anywhere and run `TarotTerminal.exe`.
 3. **Read the notice** that appears the first time and press **I agree**. TarotTerminal
@@ -256,7 +260,7 @@ The reader writes in the style of up to three example readings you choose.
 | Context window | How much the model holds at once: prompt, thinking and reading (default 16,384). With Ollama the app asks for this size. Other servers must be set to it themselves. |
 | Timeout | Give up when the server is silent this long (default 300 seconds; loading a model can be slow). |
 | Critique | A second pass checks each reading answered the question and addressed every ill-dignified card, and revises it if not. |
-| Thinking | Lets a thinking model reason before it writes. Off is faster. |
+| Thinking | Lets a thinking model reason before it writes. Off is faster. The question is always weighed without it. |
 | Examples | Your example readings (see above). |
 | Interface size | 100% to 200%, for high-resolution screens or bigger text. |
 | Deck folder | Where decks are found. **Default** is the `decks` folder next to the app. |
@@ -266,24 +270,57 @@ The reader writes in the style of up to three example readings you choose.
 If a reading would not fit the context window, the app warns before sending it. If the
 model runs out of room, the reading is marked as cut off, with **Retry**.
 
+## Suggested settings
+
+| Your card | Model in Ollama | Thinking | Context window | Max tokens |
+|---|---|---|---|---|
+| 16 GB | `gemma4:26b-a4b-it-qat` | On (Off is twice as fast and nearly as good) | 16,384 | 8,192 |
+| 12 GB | `gemma4:12b-it-qat` | Off | 16,384 | 8,192 |
+| 8 GB | `gemma4:e4b-it-qat` | Off | 8,192 | 3,000 |
+| 4 to 6 GB | `qwen3.5:4b` | On | 16,384 | 8,192 |
+
+Leave Temperature at 0.8.
+
+These come from 153 readings by 14 models: four questions on the same cards for every
+model, checked for whether each card was read, its dignity told right, no card invented
+and the question answered. How good a reading is, only you can say; **Re-read** lets you
+compare models on your own cards.
+
+- **Gemma 4** kept to the facts best. In 46 readings, the three sizes above had three
+  faults between them.
+- **`mistral-nemo`** (12 GB) is quick and sound, and **`mistral`** (8 GB) is quicker still,
+  if plainer and now and then wrong about the elements.
+- **`ministral-3`** writes the most vividly, but often runs to twice the length asked for
+  and brings in cards that weren't dealt.
+- **`llama3.2:3b`**, **`phi4-mini`** and **`ministral-3:3b`** are too small for this: they
+  skip cards, invent them, or don't answer. `phi4-mini` also turns harmless questions away.
+
+The models were timed on a 16 GB card, so the smaller cards' rows say what should fit, not
+what was timed on one. Run `ollama ps` during a reading to see. If a model won't fit, take
+the row below.
+
 ## Speed and hardware
 
 A reading takes as long as the model needs to think and write. Longer spreads ask for
 longer readings: about 300 to 500 words for three cards, and 700 to 1,000 for the Celtic
-Cross.
+Cross (most models run to about 1,300).
 
 If readings are slow:
 
 - **Keep the whole model on the graphics card.** Run `ollama ps` during a reading.
   Anything less than "100% GPU" means part of the model runs on the processor, which is
-  much slower. A smaller model, or a smaller **Context window** (8,192 is enough for
-  most spreads), may fit.
+  much slower for most models. (`gemma4:26b` is an exception: it still runs at about 100
+  tokens a second on a 16 GB card with a sixth of it on the processor.) A smaller model,
+  or a smaller **Context window**, may fit.
+- **A Context window of 8,192 is enough with Thinking off**, for up to ten cards; set Max
+  tokens to about 3,000 with it. With Thinking on, keep 16,384: a ten-card reading takes 8,000 to
+  11,000 tokens in all, and some models ran out of room at 8,192.
 - **Close other programs that use the graphics card**, such as an image generator with
   a model still loaded.
 - **Turn Thinking off.** The model then writes straight away. Readings are quicker,
   though often less considered.
-- **The first reading is slower**, while the model loads. The seconds shown under a
-  reading include that.
+- **The first question is slower**, while the model loads. That happens as the question is
+  weighed, so the seconds shown under a reading leave it out.
 
 ## Where things are kept
 
