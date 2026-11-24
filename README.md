@@ -1,4 +1,4 @@
-# TarotTerminal
+# TarotTerminal: a Golden Dawn tarot reader
 
 A Golden Dawn tarot reader that runs on your own computer.
 
