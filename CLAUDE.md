@@ -153,6 +153,7 @@ Checks: 7 of Wands = 28, Page of Wands = 32, Ace of Cups = 36, Ace of Swords = 5
 
 1. **Question.** The user enters a question and picks a spread.
 2. **Classify (LLM call 1, short, JSON output):** life area, timeframe, yes/no vs open-ended, and `harm`.
+   - It never thinks, whatever Settings says (`"thinking": false` in the call's options): `qwen3.5:4b` thought for 8,192 tokens, twice, and gave no verdict. It also takes about half a second instead of 3 to 20.
    - It starts at the shuffle (or Lay out, or Re-read). Dealing, picking and placing own cards wait for it (`ReadingSession.is_weighing()`). It is also when a model loads, so it shows: the panel's "weighing" phase with its timer, and `TableView.set_weighing()`'s glow on the deck, the empty positions or the cards.
    - `harm: true` means the question asks whether, when or how to kill, injure, abuse or torment someone, the querent included. The session then refuses (`refused`, `ReadingSession.REFUSAL`, step DONE): no card is dealt and no reading is asked for. Empty own-card positions are cleared; cards being read again stay.
    - A reply with no verdict (some models answer the question instead) is asked for once more as JSON (`ReadingPipeline.harm_verdict`). A failed call is not.
@@ -195,9 +196,11 @@ Godot 4.7 (`C:\Users\elphk\Godot\Godot_v4.7.2-stable_win64_console.exe`). `--scr
   - **Either way:** the reading warns when the prompt plus Max tokens won't fit, and a reply cut off (`finish_reason` / `done_reason` "length") is an error with Retry.
 - Thinking (`LlmConfig.thinking`, Settings → Thinking):
   - **Off:** native sends `think: false`; `/v1` sends `"reasoning_effort": "none"`.
-  - **On:** `think` is left out (the model's default), because `think: true` is an HTTP 400 for models that can't think. If a model refuses `think: false`, the call is retried without it.
+  - **On:** `think` is left out (the model's default), because `think: true` is an HTTP 400 for models that can't think. If a model refuses `think: false`, the call is retried without it; so is a `/v1` call whose server refuses `reasoning_effort` (`OpenAiClient.refuses_reasoning`).
 - `keep_alive` (llm.json only, default "30m") is how long Ollama keeps the model loaded.
 - Headless reading for prompt work: `godot --headless --script tools/read.gd -- --question="..."`
+- Comparing models on the same cards: `godot --headless --script tools/compare.gd -- --question="..." --models=a,b@thinking=0 --runs=3 --weigh` writes a table and every reading to `user://compare/` (Markdown and JSON). It skips a model that doesn't fit on the graphics card (`--allow-cpu` reads anyway), stops a slow reading (`--limit`), and unloads each model. The checks are in `tools/reading_checks.gd`; they say whether a reading did what the prompt asks, not how good it is.
+- **After changing `prompts/classify_system.txt`**, weigh harmful and merely dark questions on several models (`--runs=0 --weigh`). Wording that stops one kind of mistake makes the other in small models.
 - GDScript warnings (as the editor shows them): `bash tools/check_warnings.sh` lists every warning by file and line and should report 0. `--strict` adds the opt-in typing warnings (untyped, unsafe, discarded return values); those aren't kept at zero. A warning that is a false alarm gets a statement-level `@warning_ignore` with a comment saying why. The usual one is `redundant_await` on `LlmClient` calls, whose base methods return at once while real backends stream; a function-level `@warning_ignore` does not cover the statements inside it.
 - If a windowed run logs `Unrecognized UID: "uid://cpkwuqxyl2xca"` (the project icon), `.godot/uid_cache.bin` is stale: close the editor, delete it, and run `godot --headless --import`. `App.apply_window_icon()` falls back to the icon's file meanwhile.
 - Data check and verification table: `godot --headless --script tools/verify_data.gd`

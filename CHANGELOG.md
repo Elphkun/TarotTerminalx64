@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.1 (not released yet)
+
+### Fixed
+- The question is always weighed without thinking, whatever the setting. A thinking model
+  takes many times as long over it, and one could think until it ran out of room and give
+  no verdict, so the harm check was skipped (with a note). Weighing now takes about half a
+  second once the model is loaded.
+- Fewer harmless questions are refused: being hurt by someone, leaving someone, accidents, a
+  pet's last visit to the vet, and figures of speech. Small models may still refuse some.
+- A server that doesn't accept `reasoning_effort` is asked again without it.
+
+### Added
+- README: **Suggested settings**, a model for each size of graphics card.
+
+### For builders
+- `tools/compare.gd` reads the same cards with several models and writes up the results.
+
 ## 0.2.0 (2026-11-24)
 
 ### Added

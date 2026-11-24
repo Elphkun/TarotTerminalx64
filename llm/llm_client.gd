@@ -25,7 +25,7 @@ var last_model: String = ""
 
 ## Sends chat `messages` ([{role, content}]) and returns the full answer text.
 ## With `stream`, `token` fires for each piece as it arrives. Returns "" on failure
-## and sets `last_error`. `options` may override temperature, max_tokens, model.
+## and sets `last_error`. `options` may override temperature, max_tokens, model, thinking.
 func complete(_messages: Array, _stream: bool = false, _options: Dictionary = {}) -> String:
 	last_error = "complete() not implemented"
 	return ""

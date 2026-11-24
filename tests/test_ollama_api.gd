@@ -39,6 +39,23 @@ func test_body_options() -> void:
 			"the retry for a model that cannot think leaves think out")
 
 
+func test_a_call_may_turn_thinking_off_for_itself() -> void:
+	var config: LlmConfig = _config()
+	assert_true(config.thinking, "on in the settings")
+	assert_eq(OllamaApi.chat_body(config, "m", [], false, {"thinking": false}).get("think"), false)
+	assert_false(OllamaApi.chat_body(config, "m", [], false, {"thinking": false}, false).has("think"),
+			"still left out for a model that cannot think")
+	assert_false(OllamaApi.chat_body(config, "m", [], false, {}).has("think"), "other calls keep the setting")
+
+
+func test_a_server_that_refuses_reasoning_effort() -> void:
+	assert_true(OpenAiClient.refuses_reasoning("HTTP 400: Unrecognized request argument: reasoning_effort"))
+	assert_true(OpenAiClient.refuses_reasoning("HTTP 422: {\"loc\": [\"body\", \"reasoning_effort\"]}"))
+	assert_false(OpenAiClient.refuses_reasoning("HTTP 400: context too long"))
+	assert_false(OpenAiClient.refuses_reasoning("HTTP 500: reasoning failed"))
+	assert_false(OpenAiClient.refuses_reasoning(""))
+
+
 func test_replies() -> void:
 	var piece: Dictionary = OllamaApi.read_reply(JSON.parse_string(
 			'{"message":{"role":"assistant","content":"Hel","thinking":""},"done":false}'))

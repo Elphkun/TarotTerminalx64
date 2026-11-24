@@ -28,7 +28,7 @@ static func chat_body(config: LlmConfig, model: String, messages: Array, stream:
 	}
 	if config.keep_alive != "":
 		body["keep_alive"] = config.keep_alive
-	if not config.thinking and send_think:
+	if not options.get("thinking", config.thinking) and send_think:
 		body["think"] = false
 	if options.has("response_format"):
 		body["format"] = "json"

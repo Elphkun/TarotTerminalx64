@@ -24,6 +24,8 @@ func _init(llm_client: LlmClient) -> void:
 ## the model left out or got wrong. Check client.last_error to see if the call failed.
 ## A reply with no harm verdict (some models answer the question instead) is asked for
 ## once more as JSON; weigh_problem says so when there is still none.
+## Always without thinking: a thinking model takes many times as long over it, and one
+## (qwen3.5:4b) thought until it ran out of room and never answered.
 func classify(question: String) -> Dictionary:
 	var messages: Array = [
 		{"role": "system", "content": PromptTemplate.load_and_render("classify_system")},
@@ -32,12 +34,12 @@ func classify(question: String) -> Dictionary:
 	]
 	# LlmClient.complete() is a coroutine in every real backend, though not in the base.
 	@warning_ignore("redundant_await")
-	var answer: String = await client.complete(messages, false, {"temperature": 0.0})
+	var answer: String = await client.complete(messages, false, {"temperature": 0.0, "thinking": false})
 	var problem: String = client.last_error
 	if problem == "" and harm_verdict(answer) == null:
 		@warning_ignore("redundant_await")
 		var again: String = await client.complete(messages, false,
-				{"temperature": 0.0, "response_format": {"type": "json_object"}})
+				{"temperature": 0.0, "thinking": false, "response_format": {"type": "json_object"}})
 		if client.last_error == "" and harm_verdict(again) != null:
 			answer = again
 		else:

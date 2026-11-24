@@ -281,6 +281,20 @@ func test_no_verdict_after_two_tries_goes_ahead_and_says_so() -> void:
 	_free_client()
 
 
+func test_weighing_never_thinks() -> void:
+	var session: ReadingSession = _session()
+	_config.thinking = true
+	_client.classify_replies = ["Not JSON."]
+	session.start("Should I move?", "three_card", 1)
+	session.deal()
+	session.turn_all()
+	assert_eq(_client.options_seen.size(), 3, "two tries at weighing, then the reading")
+	assert_eq(_client.options_seen[0].get("thinking"), false)
+	assert_eq(_client.options_seen[1].get("thinking"), false, "nor does the second try")
+	assert_false(_client.options_seen[2].has("thinking"), "the reading follows the setting")
+	_free_client()
+
+
 func test_a_failed_weighing_is_not_tried_twice_and_says_so() -> void:
 	var session: ReadingSession = _session()
 	var notes: Array[String] = _unweighed(session)

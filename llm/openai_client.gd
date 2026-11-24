@@ -46,11 +46,17 @@ func complete(messages: Array, stream: bool = false, options: Dictionary = {}) -
 		body["stream_options"] = {"include_usage": true}
 	if options.has("response_format"):
 		body["response_format"] = options["response_format"]
-	if not config.thinking:
+	if not options.get("thinking", config.thinking):
 		body["reasoning_effort"] = "none"
 
 	var response: Dictionary = await _request(
 			HTTPClient.METHOD_POST, "/chat/completions", JSON.stringify(body), stream)
+	if body.has("reasoning_effort") and refuses_reasoning(last_error):
+		# A server that doesn't know the field: the call is made once more without it.
+		last_error = ""
+		body.erase("reasoning_effort")
+		response = await _request(
+				HTTPClient.METHOD_POST, "/chat/completions", JSON.stringify(body), stream)
 	if last_error != "":
 		return ""
 	if stream:
@@ -66,6 +72,12 @@ func complete(messages: Array, stream: bool = false, options: Dictionary = {}) -
 		last_finish_reason = choice["finish_reason"]
 	var message: Dictionary = choice.get("message", {})
 	return str(message.get("content", ""))
+
+
+## True when a server turned a call down for its reasoning_effort (HTTP 400 or 422).
+static func refuses_reasoning(error: String) -> bool:
+	return (error.begins_with("HTTP 400") or error.begins_with("HTTP 422")) \
+			and error.to_lower().contains("reasoning")
 
 
 ## Ollama's native /api/chat. A model that cannot think refuses even think=false on some
