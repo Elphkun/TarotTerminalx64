@@ -385,8 +385,9 @@ that ship are the traditional ones, Waite's and the Golden Dawn's.
 
 The "Rider Waite (LuciellaES)" deck is Luciella Elisabeth Scarlett's restoration of the
 Rider-Waite-Smith cards, released under CC0
-(https://luciellaes.itch.io/rider-waite-smith-tarot-cards-cc0). The other decks are the
-author's own.
+(https://luciellaes.itch.io/rider-waite-smith-tarot-cards-cc0). The other ten decks are by
+Reiji Kitsuoka: the base imagery was AI-generated (Wombo Dream), and the frames, glyphs,
+card layout and digital editing are Kitsuoka's.
 
 TarotTerminal is for entertainment and reflection only.
 
@@ -395,8 +396,9 @@ TarotTerminal is for entertainment and reflection only.
 - **The app** (code, prompts, spreads and docs) is under the [MIT License](LICENSE),
   © 2026 Sasazaki Software (Reiji Kitsuoka). Use it, change it, or borrow from it as
   you like; keep the copyright line and license text with what you take.
-- **The author's ten decks** (Baroque, Dark Fantasy, Etching, HD, Mystical, Pastel,
-  Steampunk, Synthwave, Ukiyoe, Vibrant) are under
+- **The decks by Reiji Kitsuoka** (Baroque, Dark Fantasy, Etching, HD, Mystical, Pastel,
+  Steampunk, Synthwave, Ukiyoe, Vibrant): the base imagery was AI-generated (Wombo Dream).
+  The frames, glyphs, card layout and digital editing are Kitsuoka's, under
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): share and adapt them,
   crediting "Decks by Reiji Kitsuoka (Sasazaki Software)".
 - **The Rider Waite (LuciellaES) deck** is CC0, as its author released it.

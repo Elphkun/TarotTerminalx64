@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2 (2026-11-25)
+
+### Changed
+- The license says how the ten decks by Reiji Kitsuoka were made: the base imagery was
+  AI-generated (Wombo Dream); the frames, glyphs, card layout and digital editing are
+  Kitsuoka's, under CC BY 4.0. Settings → Licenses…, `LICENSE.txt` and the README now say so.
+  Nothing else in the app has changed.
+
 ## 0.2.1 (2026-11-24)
 
 ### Fixed
