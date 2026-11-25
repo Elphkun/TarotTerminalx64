@@ -320,5 +320,8 @@ func _parse_options() -> Dictionary:
 	for argument: String in OS.get_cmdline_user_args():
 		var body: String = argument.trim_prefix("--")
 		var split: int = body.find("=")
-		options[body if split < 0 else body.left(split)] = true if split < 0 else body.substr(split + 1)
+		if split < 0:
+			options[body] = true
+		else:
+			options[body.left(split)] = body.substr(split + 1)
 	return options
